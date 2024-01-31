@@ -81,3 +81,28 @@ git push -u origin main
 
 ![Add/Commit/Push to GitHub](images/P3-Setup.JPG)
 
+## Add the Python File
+
+Create a new Python file in the root of the project folder.
+Name it as required in the specification (aka spec).
+And bring in all the information and requirements provided in the spec.
+It should look like a typical Python module, including:
+
+- opening docstring
+- imports, organized
+- comments for each function required
+- main() function
+- conditional execution block
+
+## Again: Add/Commit/Push to GitHub
+
+After sketching it out from the spec, repeat the add/commit/push process to save your work.
+
+```shell
+git add .
+git commit -m "Add Python file"
+git push
+```
+
+Iteratively build the functions required in the specification.
+Add/Commit/Push to GitHub after each successful change.
