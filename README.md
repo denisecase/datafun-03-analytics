@@ -18,6 +18,8 @@ Type `git clone` and paste the project repo url, then hit ENTER to run.
 git clone pasteURLhere
 ```
 
+![Clone from GitHub](images/P3-git-clone.JPG)
+
 ## Change to Root Project Folder and Open Project in VS Code
 
 ```shell
@@ -51,6 +53,8 @@ py -m pip install --upgrade pip
 py -m pip freeze > requirements.txt
 ```
 
+![Setup Project Virtual Environment](images/P3-ManageVenv.JPG)
+
 ## Create a .gitignore file
 
 Create a .gitignore file in the root of the project folder. See the example in this repo or the project specification repository.
@@ -74,3 +78,6 @@ git commit -m "Initial commit"
 # Git push to GitHub (origin is the repo, main is the branch)
 git push -u origin main
 ```
+
+![Add/Commit/Push to GitHub](images/P3-Setup.JPG)
+
