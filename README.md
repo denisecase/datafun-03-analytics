@@ -104,5 +104,13 @@ git commit -m "Add Python file"
 git push
 ```
 
-Iteratively build the functions required in the specification.
-Add/Commit/Push to GitHub after each successful change.
+## Run the Python File and Begin Debugging and Development
+
+Run the Python file in the terminal to see if it works. 
+If it doesn't, debug and develop until it does.
+
+```shell
+py stellar_analytics.py
+```
+
+![Run the Python File](images/P3-RunPython.JPG)

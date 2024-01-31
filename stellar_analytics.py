@@ -18,9 +18,10 @@ import pathlib
 # External library imports (requires virtual environment)
 import requests  
 
-# Local module imports
-import yourname_attr      
-import yourname_projsetup 
+# Local module imports             # NEW!!!
+import stellar_analytics_attr      # change to my module name and copy the file to this repo
+import stellar_analytics_projsetup # change to my module name and copy the file to this repo
+                                   # Names must match EXACTLY
 
 # Data acquisition functions (from the spec).....................
 
@@ -29,6 +30,7 @@ def fetch_and_write_txt_data(folder_name, filename, url):
     response = requests.get(url)
     if response.status_code == 200:
         # Call your write function to save the response content
+        pass # add pass for now - will write this later  <---- NEW!
     else:
         print(f"Failed to fetch data: {response.status_code}")
 
@@ -36,6 +38,7 @@ def fetch_and_write_excel_data(folder_name, filename, url):
     response = requests.get(url)
     if response.status_code == 200:
         # Call your write function to save the response content
+        pass # add pass for now - will write this later <---- NEW!
     else:
         print(f"Failed to fetch Excel data: {response.status_code}")
 
