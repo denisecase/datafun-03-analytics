@@ -121,4 +121,12 @@ If you have a module that you need to import, you can use the `pass` keyword to 
 
 Here's what it looks like after getting started with the coding changes.
 
-![Getting Started Coding](P3-GettingStartedCoding.JPG)
+![Getting Started Coding](images/P3-GettingStartedCoding.JPG)
+
+## Review the History in GitHub
+
+To see the history of your project, click on the "Commits" link in GitHub.
+
+For example: <https://github.com/denisecase/datafun-03-analytics/commits/main/>
+
+![Review the History in GitHub](images/P3-ReviewHistory.JPG)
