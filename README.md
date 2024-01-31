@@ -127,6 +127,6 @@ Here's what it looks like after getting started with the coding changes.
 
 To see the history of your project, click on the "Commits" link in GitHub.
 
-For example: <https://github.com/denisecase/datafun-03-analytics/commits/main/>
-
 ![Review the History in GitHub](images/P3-ReviewHistory.JPG)
+
+For example: <https://github.com/denisecase/datafun-03-analytics/commits/main/>
