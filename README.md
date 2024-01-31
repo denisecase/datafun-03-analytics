@@ -106,7 +106,7 @@ git push
 
 ## Run the Python File and Begin Debugging and Development
 
-Run the Python file in the terminal to see if it works. 
+Run the Python file in the terminal to see if it works.
 If it doesn't, debug and develop until it does.
 
 ```shell
@@ -114,3 +114,11 @@ py stellar_analytics.py
 ```
 
 ![Run the Python File](images/P3-RunPython.JPG)
+
+## Update Code to Import Earlier Modules / Use pass to get it to run
+
+If you have a module that you need to import, you can use the `pass` keyword to get the code to run without error. This is a good way to test your code in small pieces.
+
+Here's what it looks like after getting started with the coding changes.
+
+![Getting Started Coding](P3-GettingStartedCoding.JPG)
