@@ -1,132 +1,56 @@
 # datafun-03-analytics
 
-> An example or starter project for P3
+This Python project works with data and requires libraries beyond the standard Python library. 
+To avoid affecting the global Python environment, we create a local virtual environment and install the necessary packages there.
 
-This project is an example of a project that begins to address the requirements of the project specification provided here: <https://github.com/denisecase/datafun-03-spec>.
+Setting up a virtual environment may seem challenging at first, but it’s an essential skill. 
+By the end of this course, you’ll be comfortable with this workflow. Each step has a guide, but keeping your own notes is highly recommended. 
+This process is fundamental to every significant analytics project.
 
-## Start in GitHub
+## Prerequisites
 
-1. Create a new project repo in GitHub with a default README.md.
-2. Go to the Project repo in GitHub and copy the URL to clipboard (e.g., <https://github.com/denisecase/datafun-03-analytics>)
+Complete the following before starting on the Python script.
 
-## Switch to Local Machine and Clone
+1. [Create and Clone a GitHub Repo](prereqs/01-CreateAndClone.md)
+   - Create a new repo in GitHub with a default README.md.
+   - Clone it to your Documents folder.
+  
+2. Open the project folder in VS Code.
 
-1. Open Native PowerShell (Windows) or Terminal (Mac/Linux) in **Documents** folder.
-Type `git clone` and paste the project repo url, then hit ENTER to run.
+3. Set up a Virtual Environment
+   - Create and activate a virtual environment in a local folder named ".venv".
+   - Install the necessary packages. 
+   - [Set up Virtual Env on Windows](prereqs/02-SetUpVirtualEnv-Windows.md)
+   - [Set up Virtual Env on Mac/Linux](prereqs/02-SetUpVirtualEnv-MacLinux.md)
+   - IMPORTANT: Activate your .venv every time you work on the project. 
 
-```shell
-git clone pasteURLhere
-```
+4. [Create a .gitignore File](prereqs/03-CreateGitIgnore.md)
+   - Keep your repo clean by tracking only necessary files.
 
-![Clone from GitHub](images/P3-git-clone.JPG)
+5. [Git Add-Commit-Push](prereqs/04-GitAddCommitPush.md) changes to GitHub
 
-## Change to Root Project Folder and Open Project in VS Code
+Congratulations! Prerequisites can be as much work as the project when learning Python.
 
-```shell
-cd datafun-03-analytics
-code .
-```
+## Start Your Project
 
-## Start Local Project Virtual Environment
+Now that everything is set up, start coding in VS Code.
 
-Open a new Terminal in VS Code (Menu: Terminal / New Terminal) and run these commands one at a time to create a virtual environment, activate it, and install the requests package.
-Then, freeze the requirements information to a new requirements.txt file.
-Wait patiently for each command to complete.
+1. Sketch the project in comments.
+1. Add the main method and a conditional execution block.
+1. Verify it runs, then Git add-commit-push to GitHub.
 
-Example on Windows using VS Code PowerShell terminal:
+Add your imports and some initial code. Verify it runs, then Git add-commit-push.
 
-```shell
-# Create a project virtual environment
-py -m venv .venv
+## Complete the Project
 
-# Activate the project virtual environment
-.\.venv\Scripts\Activate.ps1
+Work in small steps.
 
-# Install the requests package
-py -m pip install requests
+1. Implement a part of the project. 
+2. Run the script to verify it works. 
+3. Git add-commit-push with a meaningful commit message.
 
-# If prompted, upgrade pip with the recommended command
-py -m pip install --upgrade pip
+Repeat until the project is complete.
 
-# Run pip freeze to see the current requirements 
-# and redirect the output (>) to requirements.txt file
-py -m pip freeze > requirements.txt
-```
+## Review Your Commit History in GitHub
 
-![Setup Project Virtual Environment](images/P3-ManageVenv.JPG)
-
-## Create a .gitignore file
-
-Create a .gitignore file in the root of the project folder. See the example in this repo or the project specification repository.
-
-## Update README.md
-
-Update the README.md file to include the project name, description, and a link to the project specification.
-Record the commands you used to get your project working.
-
-## Add/Commit/Push to GitHub
-
-That's worth saving! Let's do an early git add / commit / push up to GitHub.
-
-```shell
-# Git add all files and folders in the project
-git add .
-
-# Git commit with a message
-git commit -m "Initial commit"
-
-# Git push to GitHub (origin is the repo, main is the branch)
-git push -u origin main
-```
-
-![Add/Commit/Push to GitHub](images/P3-Setup.JPG)
-
-## Add the Python File
-
-Create a new Python file in the root of the project folder.
-Name it as required in the specification (aka spec).
-And bring in all the information and requirements provided in the spec.
-It should look like a typical Python module, including:
-
-- opening docstring
-- imports, organized
-- comments for each function required
-- main() function
-- conditional execution block
-
-## Again: Add/Commit/Push to GitHub
-
-After sketching it out from the spec, repeat the add/commit/push process to save your work.
-
-```shell
-git add .
-git commit -m "Add Python file"
-git push
-```
-
-## Run the Python File and Begin Debugging and Development
-
-Run the Python file in the terminal to see if it works.
-If it doesn't, debug and develop until it does.
-
-```shell
-py stellar_analytics.py
-```
-
-![Run the Python File](images/P3-RunPython.JPG)
-
-## Update Code to Import Earlier Modules / Use pass to get it to run
-
-If you have a module that you need to import, you can use the `pass` keyword to get the code to run without error. This is a good way to test your code in small pieces.
-
-Here's what it looks like after getting started with the coding changes.
-
-![Getting Started Coding](images/P3-GettingStartedCoding.JPG)
-
-## Review the History in GitHub
-
-To see the history of your project, click on the "Commits" link in GitHub.
-
-![Review the History in GitHub](images/P3-ReviewHistory.JPG)
-
-For example: <https://github.com/denisecase/datafun-03-analytics/commits/main/>
+Check the "Commits" link in GitHub to review your project history. Use clear, professional commit messages.

@@ -7,22 +7,13 @@ The project involves fetching data from the web, processing it using appropriate
 
 ## Deliverable Names
 
+Create a new GitHub repository with a default README.md. In your GitHub repository, create new empty Python script as named below. Add your earlier scripts to your project repo.
+
 - GitHub Repository:  **datafun-03-analytics**
 - Documentation:      README.md
-- Script:             **yourname_analytics.py**
-
-## Start a New Project
-
-Follow this common workflow to start a new project.
-
-1. In your browser, create a GitHub project repository with a default README.md. Name the repo as specified above.
-2. Clone your new repository down to your machine into your Documents folder.
-3. Open your new project repository folder in the Documents folder of your machine in VS Code (if you haven't already).
-4. In VS Code, add a useful .gitignore file with a line for .vsode/ and .venv/ and whatever else doesn't need to be tracked in the repository.
-5. In VS Code, edit your README.md to record your commands, process, and notes so far.
-6. In VS Code, open a terminal - PowerShell if Windows, zsh or bash if Mac/Linux.
-7. Use the terminal to git add your files and folders to source control, and git commit your changes with a useful message (e.g. "initial commit"), and git push the changes up to GitHub.
-8. Verify your GitHub repository.
+- New Script:         **yourname_analytics.py**
+- Setup Script:       **yourname_project_setup.py**
+- Utils Script:       **yourname_utils.py**
 
 ## Objective
 
@@ -30,32 +21,48 @@ Create a Python module that demonstrates skills in fetching data from the web, p
 
 ## Requirements
 
-Create and Manage Project Virtual Environment
-
-This project uses the requests package, which is not included in the Python Standard Library - we must install it. 
-To keep our project separate from all other Python projects,
-we will create and manage a local project virtual environment.
-We'll install our packages into the local project virtual environment.
-For the recommended process with detailed steps and commands, see [PROJECT_VIRTUAL_ENV.md](PROJECT_VIRTUAL_ENV.md).
-
 ### 1. Opening Docstring
 
 In your Python file, create a docstring with a brief introduction to your project.
 
-### 3. Import Dependencies (At the Top, After the Opening Docstring)
+### 2. Import Dependencies (At the Top, After the Opening Docstring)
 
 Organize your project imports near the top of the file, following conventions.
-For example, standard library imports first, then external library imports, then local module imports. 
-Continue to practice importing your own modules and reuse your prior code when building your project folders.
-Follow conventional package import organization and aliasing. 
-Import each package just once near the top of the file. 
+For example, standard library imports first, then external library imports (we don't need any of these yet), then local module imports. 
+Follow conventional package import organization. 
+Import each package just once near the top of the file.  
 
 Important: Be sure you have INSTALLED any external packages (those not in the Python Standard Library) into your active project virtual environment first. 
 
-Note: if we use "import pathlib" as below, we must use "pathlib.Path" when working with a Path. Many other projects use "from pathlib import Path". When using this approach, you omit the initial pathlib in pathlib.Path, and just use Path.
+Note: if we use "import pathlib", we must use "pathlib.Path" when working with a Path. 
+Many other projects use "from pathlib import Path". 
+When using this approach, you omit the initial pathlib in pathlib.Path, and just use Path.
 
+### 3. Define Global Variables
 
-### 4. Define Functions for Data Acquisition
+Look on the web. Find some school-appropriate sources of data.
+Find a source for text data, csv data, excel data, and json data.
+Assign the URL strings to global variables as shown in the sample code. 
+
+txt_url:str = 'https://shakespeare.mit.edu/romeo_juliet/full.html'
+
+csv_url:str = 'https://raw.githubusercontent.com/MainakRepositor/Datasets/master/World%20Happiness%20Data/2020.csv' 
+
+excel_url:str = 'https://github.com/bharathirajatut/sample-excel-dataset/raw/master/cattle.xls' 
+
+json_url:str = 'http://api.open-notify.org/astros.json'
+
+txt_folder_name = 'data-txt'
+csv_folder_name = 'data-csv'
+excel_folder_name = 'data-excel' 
+json_folder_name = 'data-json' 
+
+txt_filename = 'data.txt'
+csv_filename = 'data.csv'
+excel_filename = 'data.xls' 
+json_filename = 'data.json' 
+
+### 3. Define Functions for Data Acquisition
 
 Use the requests library to fetch data from specified web APIs or online data sources.
 This will include JSON, CSV, and plain text data.
@@ -81,7 +88,7 @@ def fetch_and_write_excel_data(folder_name, filename, url):
 
 ```
 
-### 5. Define Functions to Write Data
+### 4. Define Functions to Write Data
 
 Write functions to save content to different file types (e.g., text, CSV, JSON).
 
@@ -103,7 +110,7 @@ def write_excel_file(folder_name, filename, data):
         print(f"Excel data saved to {file_path}")
 ```
 
-### 6. Write Functions to Process Data and Generate Output
+### 5. Write Functions to Process Data and Generate Output
 
 Write functions to read, process, and write results using appropriate Python collections (lists, sets, dictionaries, etc.). Demonstrate understanding of each collection data type's characteristics and usage.
 
@@ -124,7 +131,7 @@ Function 4. Process JSON Data:
 Process JSON data with dictionaries to demonstrate proficiency in working with labeled data.
 Parse the JSON data to extract relevant information and present it in a simplified, human-readable text format.
 
-### 7. Implement Exception Handling
+### 6. Implement Exception Handling in Functions
 
 We know that reading and writing files - especially fetching items from the web is unreliable.
 Even with perfect code, there are many things that can go wrong.
@@ -159,9 +166,9 @@ def fetch_txt_data(folder_name, url):
         print(f"I/O error({e.errno}): {e.strerror}")
 ```
 
-### 8. Define Main Function
+### 7. Define Main Function
 
-Implement a `main()` function to test the folder creation functions and demonstrate the use of imported modules.
+Implement a main() function to test the folder creation functions and demonstrate the use of imported modules.
 
 Python main() function code example:
 
@@ -170,24 +177,6 @@ def main():
     ''' Main function to demonstrate module capabilities. '''
 
     print(f"Name: {yourname_attr.my_name_string}")
-
-    txt_url = 'https://shakespeare.mit.edu/romeo_juliet/full.html'
-
-    csv_url = 'https://raw.githubusercontent.com/MainakRepositor/Datasets/master/World%20Happiness%20Data/2020.csv' 
-
-    excel_url = 'https://github.com/bharathirajatut/sample-excel-dataset/raw/master/cattle.xls' 
-    
-    json_url = 'http://api.open-notify.org/astros.json'
-
-    txt_folder_name = 'data-txt'
-    csv_folder_name = 'data-csv'
-    excel_folder_name = 'data-excel' 
-    json_folder_name = 'data-json' 
-
-    txt_filename = 'data.txt'
-    csv_filename = 'data.csv'
-    excel_filename = 'data.xls' 
-    json_filename = 'data.json' 
 
     fetch_and_write_txt_data(txt_folder_name, txt_filename, txt_url)
     fetch_and_write_csv_data(csv_folder_name, csv_filename,csv_url)
