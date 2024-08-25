@@ -55,10 +55,6 @@ fetched_folder_name = "fetched"
 # Define Functions to Fetch Excel Data
 #####################################
 
-#####################################
-# Define Functions to Fetch Excel Data
-#####################################
-
 def fetch_excel_file(folder_name:str, filename:str, url:str) -> None:
     """Fetch Excel data from the given URL and write it to a file."""
     print(f"FUNCTION CALLED: fetch_excel_file with folder_name={folder_name}, filename={filename}, url={url}")
