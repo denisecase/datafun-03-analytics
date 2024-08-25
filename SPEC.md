@@ -11,7 +11,7 @@ Create a new GitHub repository with a default README.md. In your GitHub reposito
 
 - GitHub Repository:  **datafun-03-analytics**
 - Documentation:      README.md
-- New Script:         **yourname_analytics.py**
+- New Script:         **yourname_fetcher.py**
 - Setup Script:       **yourname_project_setup.py**
 - Utils Script:       **yourname_utils.py**
 
@@ -40,166 +40,91 @@ When using this approach, you omit the initial pathlib in pathlib.Path, and just
 
 ### 3. Define Global Variables
 
-Look on the web. Find some school-appropriate sources of data.
-Find a source for text data, csv data, excel data, and json data.
-Assign the URL strings to global variables as shown in the sample code. 
+Assign a global variable for the folder where you will store your fetched data files.
 
-txt_url:str = 'https://shakespeare.mit.edu/romeo_juliet/full.html'
-
-csv_url:str = 'https://raw.githubusercontent.com/MainakRepositor/Datasets/master/World%20Happiness%20Data/2020.csv' 
-
-excel_url:str = 'https://github.com/bharathirajatut/sample-excel-dataset/raw/master/cattle.xls' 
-
-json_url:str = 'http://api.open-notify.org/astros.json'
-
-txt_folder_name = 'data-txt'
-csv_folder_name = 'data-csv'
-excel_folder_name = 'data-excel' 
-json_folder_name = 'data-json' 
-
-txt_filename = 'data.txt'
-csv_filename = 'data.csv'
-excel_filename = 'data.xls' 
-json_filename = 'data.json' 
-
-### 3. Define Functions for Data Acquisition
+### 4. Define Functions for Data Acquisition
 
 Use the requests library to fetch data from specified web APIs or online data sources.
-This will include JSON, CSV, and plain text data.
+This should include Excel, JSON, text, and CSV files. 
 After a successful fetch, call the appropriate write function to save the data to a file.
 
-Python fetch functions code examples:
+For each type of source file:
 
-```python
+- Write a function to fetch it using the requests module
+- Write a function to write the data. This will be called by the fetch function and will be available for reuse as needed. 
 
-def fetch_and_write_txt_data(folder_name, filename, url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        # Call your write function to save the response content
-    else:
-        print(f"Failed to fetch data: {response.status_code}")
-
-def fetch_and_write_excel_data(folder_name, filename, url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        # Call your write function to save the response content
-    else:
-        print(f"Failed to fetch Excel data: {response.status_code}")
-
-```
-
-### 4. Define Functions to Write Data
-
-Write functions to save content to different file types (e.g., text, CSV, JSON).
-
-Python write functions code examples:
-
-```python
-
-def write_txt_file(folder_name, filename, data):
-    file_path = pathlib.Path(folder_name).join_path(filename) # use pathlib to join paths
-    with file_path.open('w') as file:
-        file.write(data)
-        print(f"Text data saved to {file_path}")
-
-
-def write_excel_file(folder_name, filename, data):
-    file_path = pathlib.Path(folder_name).join_path(filename) # use pathlib to join paths
-    with open(file_path, 'wb') as file:
-        file.write(response.content)
-        print(f"Excel data saved to {file_path}")
-```
 
 ### 5. Write Functions to Process Data and Generate Output
 
-Write functions to read, process, and write results using appropriate Python collections (lists, sets, dictionaries, etc.). Demonstrate understanding of each collection data type's characteristics and usage.
+A file has been provided that will process each kind of data. 
 
-Process the fetched data using appropriate Python collections and generate insightful analytics. The results of the processing should be formatted and written into text files.
+In each case, it reads the fetched file and calls a function to process that file. 
 
-Function 1. Process Text Data:
-Process text with lists and sets to demonstrate proficiency in working with text files.
-Analyze text data to generate statistics like word count, frequency of words, etc., and format these findings into a readable text file.
+Right now, all the files are processed using a count of some kind and the results are provided in the 'fetched_counts' output folder. 
 
-Function 2. Process CSV Data:
-Process CSV files with tuples to demonstrate proficiency in working with tabular data.
-Extract and analyze data from CSV files to produce meaningful statistics, summaries, or insights, and save the insights as text files.
-
-Function 3. Process Excel Data:
-Extract and analyze data from Excel files to produce meaningful statistics, summaries, or insights, and save the insights as text files.
-
-Function 4. Process JSON Data:
-Process JSON data with dictionaries to demonstrate proficiency in working with labeled data.
-Parse the JSON data to extract relevant information and present it in a simplified, human-readable text format.
+You are encouraged to provide an additional process function as you like, but it is not required. 
 
 ### 6. Implement Exception Handling in Functions
 
-We know that reading and writing files - especially fetching items from the web is unreliable.
-Even with perfect code, there are many things that can go wrong.
-Use try/except/finally and implement exception handling to catch known possible errors and handle them gracefully in at least one of your functions.
+Fetching items from the web is unreliable.
+Even with perfect code, many things can go wrong.
+When we know in advance our code might not work (due to no fault of our own) 
+we plan for these expected errors. 
+We use try/except/finally and implement exception handling to catch known possible errors and handle them gracefully in our functions.
 
-Python function with exception handling code example:
+Error handling is not often taught as it takes up twice the space, but all production code includes robust error handling. 
 
-```python
+It is good professional practice to:
 
-def fetch_txt_data(folder_name, url):
-    try:
-        response = requests.get(url)
-        response.raise_for_status()  
-        # Will raise an HTTPError 
-        # if the HTTP request returns an unsuccessful status code
+- LOG each function call (with the arguments)
+- LOG errors
+- LOG successful function returns (including any calculated outputs)
 
-        # Assuming the response content is text data
-        file_path = pathlib.Path(folder_name) / 'data.txt'
-        with open(file_path, 'w') as file:
-            file.write(response.text)
-        print(f"Text data saved to {file_path}")
-
-    except requests.exceptions.HTTPError as errh:
-        print(f"Http Error: {errh}")
-    except requests.exceptions.ConnectionError as errc:
-        print(f"Error Connecting: {errc}")
-    except requests.exceptions.Timeout as errt:
-        print(f"Timeout Error: {errt}")
-    except requests.exceptions.RequestException as err:
-        print(f"Oops: Something Else: {err}")
-    except IOError as e:
-        print(f"I/O error({e.errno}): {e.strerror}")
-```
+We use print() statements, but the standard library has a great logging module that improves on this important practice. 
 
 ### 7. Define Main Function
 
 Implement a main() function to test the folder creation functions and demonstrate the use of imported modules.
 
-Python main() function code example:
+Use this main() method or something similar to test your function implementations.
 
 ```python
 def main():
     ''' Main function to demonstrate module capabilities. '''
 
-    print(f"Name: {yourname_attr.my_name_string}")
+    # Start of main execution
+    print("#####################################")
+    print("# Starting execution of main()")
+    print("#####################################\n")
 
-    fetch_and_write_txt_data(txt_folder_name, txt_filename, txt_url)
-    fetch_and_write_csv_data(csv_folder_name, csv_filename,csv_url)
-    fetch_and_write_excel_data(excel_folder_name, excel_filename,excel_url)
-    fetch_and_write_json_data(json_folder_name, json_filename,json_url)
+    # Reuse get_byline() from imported module
+    # TODO: Change this to use your module function and uncomment
+    print(f"Byline: {case_utils.get_byline()}")
 
-    process_txt_file(txt_folder_name,'data.txt', 'results_txt.txt')
-    process_csv_file(csv_folder_name,'data.csv', 'results_csv.txt')
-    process_excel_file(excel_folder_name,'data.xls', 'results_xls.txt')
-    process_json_file(json_folder_name,'data.json', 'results_json.txt')
+    # Reuse  create_folders_from_list() from imported module to make a folder for fetched files
+    # We set the name as a global variable so the whole module can use it. 
+    # Make sure we provide a LIST when using our function
+    # TODO: Change this to use your module function and uncomment
+    case_project_setup.create_folders_from_list([fetched_folder_name])
 
-    # Find some data you care about. What format is it? How will you ingest the data?
-    # What do you want to extract and write? What export format will you use?
-    # Process at least TWO unique data sets and describe your work clearly.
-    # Use the README.md and your code to showcase your ability to work with data.
+    # Web locations of different types of data to fetch
+    # TODO: Optional find different urls for 4 different types of data                               
+    excel_url:str = 'https://raw.githubusercontent.com/denisecase/datafun-03-analytics/main/hosted/Feedback.xlsx' 
+    json_url:str = 'http://api.open-notify.org/astros.json'
+    txt_url:str = 'https://raw.githubusercontent.com/denisecase/datafun-03-analytics/main/hosted/romeo.txt'
+    csv_url:str = 'https://raw.githubusercontent.com/MainakRepositor/Datasets/master/World%20Happiness%20Data/2020.csv' 
 
+    # Fetch data files - provide the fetched file names
+    fetch_excel_file(fetched_folder_name, "feedback.xlsx", excel_url)
+    fetch_json_file(fetched_folder_name, "astros.json", json_url)
+    fetch_txt_file(fetched_folder_name, "romeo.txt", txt_url)
+    fetch_csv_file(fetched_folder_name, "2020_happiness.csv", csv_url)
+
+    # End of main execution
+    print("\n#####################################")
+    print("# Completed execution of main()")
+    print("#####################################")
 ```
-
-Copies of the data files have been added to this repo. 
-Click on a data file to view it. 
-To save the data, click "Raw" in the upper right - this will show just the raw file content in your browser. 
-In Chrome, right-click and select "Save as ..." to get a local copy to compare. 
-This won't work for Excel files - save the .xls file directly from GitHub. 
 
 ### Conditional Script Execution (At the end of the file)
 
@@ -210,8 +135,3 @@ not when imported as a module by using standard boilerplate code.
 if __name__ == '__main__':
     main()
 ```
-
-## Module Design
-
-The code should be clear, well-organized, and demonstrate good practices.
-Include comments and docstrings for clarity.

@@ -52,7 +52,7 @@ import case_utils
 fetched_folder_name = "fetched"
 
 #####################################
-# Define Functions to Fetch Excel Data
+# Define Functions to Fetch and Write Excel Data
 #####################################
 
 def fetch_excel_file(folder_name:str, filename:str, url:str) -> None:
@@ -79,7 +79,7 @@ def write_excel_file(folder_name:str, filename:str, binary_data:bytes) -> None:
         print(f"Error writing Excel data to {file_path}: {e}")
 
 #####################################
-# Define Functions to Fetch JSON Data 
+# Define Functions to Fetch and Write JSON Data 
 #####################################
 
 def fetch_json_file(folder_name:str, filename:str, url:str) -> None:
@@ -106,60 +106,32 @@ def write_json_file(folder_name:str, filename:str, json_data) -> None:
         print(f"Error writing JSON data to {file_path}: {e}")
 
 #####################################
-# Define Functions to Fetch Text Data
+# Define Functions to Fetch and Write Text Data
 #####################################
 
 def fetch_txt_file(folder_name:str, filename:str, url:str) -> None:
     """Fetch text data from the given URL and write it to a file."""
     print(f"FUNCTION CALLED: fetch_txt_file with folder_name={folder_name}, filename={filename}, url={url}")
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        write_txt_file(folder_name, filename, response.text)
-        print(f"SUCCESS: Text file fetched and saved as {filename}")
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching text data: {e}")
+    pass # TODO: Replace with your implementation
 
 def write_txt_file(folder_name:str, filename:str, string_data:str) -> None:
     """Write text data to a file."""
     file_path = pathlib.Path(folder_name).joinpath(filename)
     print(f"FUNCTION CALLED: write_txt_file() folder_name={folder_name}, filename={filename}, string_data={string_data}")
+    pass # TODO: Replace with your implementation
 
-    try:
-        file_path.parent.mkdir(parents=True, exist_ok=True)
-        with file_path.open('w') as file:
-            file.write(string_data)
-        print(f"SUCCESS: Text data saved to {file_path}")
-    except IOError as e:
-        print(f"Error writing text data to {file_path}: {e}")
 
 #####################################
-# Define Functions to Fetch CSV Data
+# Define Functions to Fetch and Write CSV Data
 #####################################
 
 def fetch_csv_file(folder_name:str, filename:str, url:str) -> None:
-    """Fetch CSV data from the given URL and write it to a file."""
-    print(f"FUNCTION CALLED: fetch_csv_file with folder_name={folder_name}, filename={filename}, url={url}")
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        write_txt_file(folder_name, filename, response.text)
-        print(f"SUCCESS: CSV file fetched and saved as {filename}")
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching CSV data: {e}")
+    pass # TODO: Replace with your implementation
 
-def write_txt_file(folder_name:str, filename:str, string_data:str) -> None:
-    """Write text data to a file."""
-    file_path = pathlib.Path(folder_name).joinpath(filename)
-    print(f"FUNCTION CALLED: write_txt_file() folder_name={folder_name}, filename={filename}, string_data={string_data}")
 
-    try:
-        file_path.parent.mkdir(parents=True, exist_ok=True)
-        with file_path.open('w') as file:
-            file.write(string_data)
-        print(f"SUCCESS: Text data saved to {file_path}")
-    except IOError as e:
-        print(f"Error writing text data to {file_path}: {e}")
+def write_csv_file(folder_name:str, filename:str, string_data:str) -> None:
+    pass # TODO: Replace with your implementation
+
 
 #####################################
 # Define main() function for this module.

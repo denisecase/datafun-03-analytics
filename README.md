@@ -54,3 +54,13 @@ Repeat until the project is complete.
 ## Review Your Commit History in GitHub
 
 Check the "Commits" link in GitHub to review your project history. Use clear, professional commit messages.
+
+
+## TODO
+
+Areas needing work are highlighted with TODO.
+
+There are VS Code extensions like TODO Tree that can help with TODO items if you like. 
+
+Experimentation with additional professional tools is encouraged.
+
