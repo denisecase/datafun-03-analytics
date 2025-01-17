@@ -15,11 +15,14 @@ Start by running the examples to understand their functionality, and then build 
 ## Project Workflow
 
 ### Step 1. Set Up Your Project
-1. Copy this repository to your own GitHub account OR create a GitHub repo with default README.md (you'll need to manually add these example files).
+1. Create a GitHub repo with default README.md (you'll need to manually add these example files).
 2. Clone your new repo down to your machine. 
 3. Open the folder in VS Code.
 4. Add a .gitignore file.
 5. Install the required packages - see [requirements.txt](requirements.txt).
+
+Full disclosure: We teach building repos from scratch because we assume students want to learn to create their own novel projects. 
+However, if you want to get a local copy of this repo down to your machine, you can click the "Use this template" green button to copy it all into your account.  
 
 ### Step 2. Run the Examples
 If you started with your own repo, copy the files from this GitHub as needed. 
