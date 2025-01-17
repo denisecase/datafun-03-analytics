@@ -14,36 +14,32 @@ There are several steps:
 
 Open a new Terminal in VS Code (Menu: Terminal / New Terminal) and create it. 
 
-In VS Code PowerShell terminal:
+In terminal:
 
 ```shell
-py -m venv .venv
+python3 -m venv .venv
 ```
-
-If VS Code asks to use it, click Yes. 
-
-![Yes to new virtual env](images/02-create-venv.png)
 
 ## Activate (ALWAYS!)
 
-In VS Code PowerShell terminal:
+In terminal:
 
 ```shell
-.\.venv\Scripts\Activate.ps1
+source .venv/bin/activate
 ```
 
 Important! Remember to activate your .venv every time you open a terminal to work on your project. 
 
-A "(.venv)" may appear in your teminal prompt. 
+Verify the .venv appears in your terminal prompt. 
 
 ## Install Packages (as needed)
 
-In VS Code PowerShell terminal:
+In terminal:
 
 Upgrade pip with the recommended command:
 
 ```shell
-py -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 ```
 
 ```shell

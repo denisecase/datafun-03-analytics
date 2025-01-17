@@ -1,66 +1,113 @@
 # datafun-03-analytics
 
-This Python project works with data and requires libraries beyond the standard Python library. 
-To avoid affecting the global Python environment, we create a local virtual environment and install the necessary packages there.
+## Overview
+This project demonstrates how to fetch and process various types of 
+data (Excel, JSON, text, and CSV) using Python. 
 
-Setting up a virtual environment may seem challenging at first, but it’s an essential skill. 
-By the end of this course, you’ll be comfortable with this workflow. Each step has a guide, but keeping your own notes is highly recommended. 
-This process is fundamental to every significant analytics project.
+The repository includes:
 
-## Prerequisites
+- Four example fetchers: Scripts to retrieve data from the web.
+- Four example processors: Scripts to analyze and process the fetched data.
 
-Complete the following before starting on the Python script.
+Start by running the examples to understand their functionality, and then build your own scripts to fetch and process data of your choice (using each of these example types).
 
-1. [Create and Clone a GitHub Repo](prereqs/01-CreateAndClone.md)
-   - Create a new repo in GitHub with a default README.md.
-   - Clone it to your Documents folder.
+---
+## Project Workflow
+
+### Step 1. Set Up Your Project
+1. Copy this repository to your own GitHub account OR create a GitHub repo with default README.md (you'll need to manually add these example files).
+2. Clone your new repo down to your machine. 
+3. Open the folder in VS Code.
+4. Add a .gitignore file.
+5. Install the required packages - see [requirements.txt](requirements.txt).
+
+### Step 2. Run the Examples
+If you started with your own repo, copy the files from this GitHub as needed. 
+If you cloned the template, you'll have the example files already. 
+
+Read, review, and run each example script. 
+Open a terminal in the root project folder and run the appropriate 
+command for your operating system. 
+For example, these generally work on Windows. 
+Adjust the commands to work for your machine, 
+e.g. use python3 if Mac/Linux. 
+
+```shell
+py fetch_scripts/example_get_csv.py
+py fetch_scripts/example_get_excel.py
+py fetch_scripts/example_get_json.py
+py fetch_scripts/example_get_text.py
+
+py process_scripts/example_process_csv.py
+py process_scripts/example_process_excel.py
+py process_scripts/example_process_json.py
+py process_scripts/example_process_text.py
+
+```
+
+TODO: Replace the example commands with the actual commands used on your machine.
+Ensure all example scripts run without errors before proceeding.
+ 
+### Step 3. Create and Run Your Data Fetchers
+1. Find data files on the web for each type (CSV, Excel, JSON, and text).  
+2. Create your own Python script to fetch each type of data and save it in a folder named **data**.
+3. Name your scripts:
+   1. yourname_get_csv.py
+   2. yourname_get_excel.py
+   3. yourname_get_json.py
+   4. yourname_get_text.py
+4. Implement your data-processing logic in small steps:
+   - Fetch data for one file type.
+   - Test, verify, and Git add-commit-push.
   
-2. Open the project folder in VS Code.
+## Step 4. Create and Run Your Data Processors
+1. Determine a simple metric from each of your data files.  
+2. Create your own Python script to read the data, process it, and save it in a folder named **data_processed**.
+3. Name your scripts:
+   1. yourname_process_csv.py
+   2. yourname_process_excel.py
+   3. yourname_process_json.py
+   4. yourname_process_text.py
+4. Work incrementally, using git add-commit-push after each bit of progress. 
 
-3. Set up a Virtual Environment
-   - Create and activate a virtual environment in a local folder named ".venv".
-   - Install the necessary packages. 
-   - [Set up Virtual Env on Windows](prereqs/02-SetUpVirtualEnv-Windows.md)
-   - [Set up Virtual Env on Mac/Linux](prereqs/02-SetUpVirtualEnv-MacLinux.md)
-   - IMPORTANT: Activate your .venv every time you work on the project. 
+## Step 5. Update README.md to Describe Your Work
+1. In your README.md, list each of your fetchers with a short description.
+2. In your README.md, list each of your processors with a short description of what it does. 
+3. Include the execution commands to run your fetchers and processors. 
 
-4. [Create a .gitignore File](prereqs/03-CreateGitIgnore.md)
-   - Keep your repo clean by tracking only necessary files.
+---
 
-5. [Git Add-Commit-Push](prereqs/04-GitAddCommitPush.md) changes to GitHub
+## Helpful Documentation
+If you're unsure about any of the setup steps or tools, consult these resources:
+- [requests library documentation](https://docs.python-requests.org)
+- [GitHub: Create and Clone a Repo](prereqs/01-CreateAndClone.md)
+- [Set Up a Virtual Environment](docs/02-SetUpVirtualEnv.md)
+- [Create a .gitignore File](docs/03-CreateGitIgnore.md)
+- [Using Git: Add-Commit-Push](docs/04-GitAddCommitPush.md)
 
-Congratulations! Prerequisites can be as much work as the project when learning Python.
+---
 
-## Start Your Project
+### Tips
+- Use descriptive filenames for the data you fetch - and proper file extensions.
+- Work incrementally—verify each small step works before moving to the next.
+- The examples are required reading - use them to learn and understand first. 
+- Test each script carefully before proceeding.
+- Use meaningful commit messages when pushing to GitHub to document your progress.
 
-Now that everything is set up, start coding in VS Code.
+---
+## Review Commit History
+Once your project is complete, review your commit history in GitHub under the **Commits** tab. 
+Ensure your commit messages are clear and professional.
 
-1. Sketch the project in comments.
-1. Add the main method and a conditional execution block.
-1. Verify it runs, then Git add-commit-push to GitHub.
+---
+## Finalize GitHub
 
-Add your imports and some initial code. Verify it runs, then Git add-commit-push.
+Make sure the following requirements have been met:
 
-## Complete the Project
-
-Work in small steps.
-
-1. Implement a part of the project. 
-2. Run the script to verify it works. 
-3. Git add-commit-push with a meaningful commit message.
-
-Repeat until the project is complete.
-
-## Review Your Commit History in GitHub
-
-Check the "Commits" link in GitHub to review your project history. Use clear, professional commit messages.
-
-
-## TODO
-
-Areas needing work are highlighted with TODO.
-
-There are VS Code extensions like TODO Tree that can help with TODO items if you like. 
-
-Experimentation with additional professional tools is encouraged.
-
+- [] You have committed a useful .gitignore file.
+- [] You have committed a useful logs/project_log.log file. 
+- [] All example scripts executed successfully.
+- [] Four fetcher scripts created and executed.
+- [] Four processor scripts created and functional.
+- [] README.md includes explanations for fetchers and processors with commands for execution.
+- [] Each Python file contains a docstring with its purpose and input/output details.
