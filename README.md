@@ -104,10 +104,10 @@ Ensure your commit messages are clear and professional.
 
 Make sure the following requirements have been met:
 
-- [] You have committed a useful .gitignore file.
-- [] You have committed a useful logs/project_log.log file. 
-- [] All example scripts executed successfully.
-- [] Four fetcher scripts created and executed.
-- [] Four processor scripts created and functional.
-- [] README.md includes explanations for fetchers and processors with commands for execution.
-- [] Each Python file contains a docstring with its purpose and input/output details.
+- [ ] You have committed a useful .gitignore file.
+- [ ] You have committed a useful logs/project_log.log file. 
+- [ ] All example scripts executed successfully.
+- [ ] Four fetcher scripts created and executed.
+- [ ] Four processor scripts created and functional.
+- [ ] README.md includes explanations for fetchers and processors with commands for execution.
+- [ ] Each Python file contains a docstring with its purpose and input/output details.
