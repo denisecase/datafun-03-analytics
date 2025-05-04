@@ -12,18 +12,22 @@ in the same folder as this file.
 
 # Import from Python Standard Library
 import pathlib
+import sys
 
 # Import from external packages
 import requests
 
-# Import from local project modules
+# Ensure project root is in sys.path for local imports
+sys.path.append(str(pathlib.Path(__file__).resolve().parent))
+
+# Import local modules
 from utils_logger import logger
 
 #####################################
 # Declare Global Variables
 #####################################
 
-fetched_folder_name = "example_data"
+FETCHED_DATA_DIR = "example_data"
 
 #####################################
 # Define Functions
@@ -91,7 +95,7 @@ def main():
     """
     excel_url = 'https://raw.githubusercontent.com/denisecase/datafun-03-analytics/main/hosted/Feedback.xlsx'
     logger.info("Starting Excel fetch demonstration...")
-    fetch_excel_file(fetched_folder_name, "feedback.xlsx", excel_url)
+    fetch_excel_file(FETCHED_DATA_DIR, "Feedback.xlsx", excel_url)
 
 #####################################
 # Conditional Execution
@@ -99,5 +103,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# TODO: Run this script to ensure all functions work as intended.

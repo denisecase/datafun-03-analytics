@@ -13,18 +13,22 @@ in the same folder as this file.
 # Import from Python Standard Library
 import json
 import pathlib
+import sys
 
 # Import from external packages
 import requests
 
-# Import from local project modules
+# Ensure project root is in sys.path for local imports
+sys.path.append(str(pathlib.Path(__file__).resolve().parent))
+
+# Import local modules
 from utils_logger import logger
 
 #####################################
 # Declare Global Variables
 #####################################
 
-fetched_folder_name = "example_data"
+FETCHED_DATA_DIR = "example_data"
 
 #####################################
 # Define Functions
@@ -92,7 +96,7 @@ def main():
     """
     json_url = 'http://api.open-notify.org/astros.json'
     logger.info("Starting JSON fetch demonstration...")
-    fetch_json_file(fetched_folder_name, "astros.json", json_url)
+    fetch_json_file(FETCHED_DATA_DIR, "astros.json", json_url)
 
 #####################################
 # Conditional Execution
@@ -100,5 +104,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# TODO: Run this script to ensure all functions work as intended.

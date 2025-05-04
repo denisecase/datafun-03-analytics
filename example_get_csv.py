@@ -2,8 +2,8 @@
 This example file fetches a CSV file from the web 
 and saves it to a local file named 2020_happiness.csv in a folder named example_data.
 
-Please save a copy of the provided utils_logger.py file 
-in the same folder as this file.
+For best results, add the provided utils_logger.py file 
+to the same folder as this file.
 """
 
 #####################################
@@ -12,18 +12,22 @@ in the same folder as this file.
 
 # Import from Python Standard Library
 import pathlib
+import sys
 
 # Import from external packages
 import requests
 
-# Import from local project modules
+# Ensure project root is in sys.path for local imports
+sys.path.append(str(pathlib.Path(__file__).resolve().parent))
+
+# Import local modules
 from utils_logger import logger
 
 #####################################
 # Declare Global Variables
 #####################################
 
-fetched_folder_name = "example_data"
+FETCHED_DATA_DIR = "example_data"
 
 #####################################
 # Define Functions
@@ -91,7 +95,7 @@ def main():
     """
     csv_url = 'https://raw.githubusercontent.com/MainakRepositor/Datasets/master/World%20Happiness%20Data/2020.csv'
     logger.info("Starting CSV fetch demonstration...")
-    fetch_csv_file(fetched_folder_name, "2020_happiness.csv", csv_url)
+    fetch_csv_file(FETCHED_DATA_DIR, "2020_happiness.csv", csv_url)
 
 #####################################
 # Conditional Execution
@@ -99,6 +103,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# TODO: Run this script to ensure all functions work as intended.
-
