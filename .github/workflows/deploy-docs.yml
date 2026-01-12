@@ -1,0 +1,102 @@
+# .github/workflows/deploy-docs.yml
+
+name: Docs Deploy (MkDocs Python)
+
+# WHY: Build and deploy MkDocs site to GitHub Pages from Actions artifacts.
+# REQ: Repo Settings -> Pages -> Build and deployment -> Source: GitHub Actions
+
+on:
+  push:
+    branches: [main] # WHY: Deploy on pushes to main branch.
+  workflow_dispatch: # WHY: Allow manual triggering from Actions tab.
+
+permissions: # WHY: Use least privileges required.
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency: # WHY: Ensure only one deployment runs at a time.
+  group: "pages"
+  cancel-in-progress: true
+
+env:
+  PYTHONUNBUFFERED: "1" # WHY: Real-time logging.
+  PYTHONIOENCODING: "utf-8" # WHY: Ensure UTF-8 encoding so docs with international characters work.
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest # WHY: Linux environment matches most production deployments
+    timeout-minutes: 10 # WHY: Prevent hanging jobs.
+
+    steps:
+      # ============================================================
+      # ASSEMBLE: Get code and set up environment
+      # ============================================================
+
+      - name: A1) Checkout this repository
+        uses: actions/checkout@v6
+
+      - name: A2) Install uv (with caching)
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true # WHY: Speed up installs on subsequent runs
+          cache-dependency-glob: "uv.lock" # WHY: Only re-cache when dependencies change
+
+      - name: A3) Install Python 3.14
+        run: uv python install 3.14
+
+      - name: A4) Sync to install docs dependencies (locked)
+        run: uv sync --extra docs --frozen
+
+      - name: A5) Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      # ============================================================
+      # === DEPLOY: Prep and deploy docs  ===
+      # ============================================================
+
+      - name: D1) Verify MkDocs configuration exists
+        run: |
+          if [ -f "mkdocs.yml" ] || [ -f "mkdocs.yaml" ]; then
+            echo "MkDocs configuration found. Proceeding."
+          else
+            echo "ERROR: mkdocs.yml not found."
+            echo "If you do NOT want documentation deployment,"
+            echo "delete .github/workflows/deploy-docs.yml (or add mkdocs.yml)."
+            exit 1
+          fi
+
+      - name: D2) Build docs using strict, verbose
+        run: uv run mkdocs build --strict --verbose --site-dir site
+
+      - name: D3) Upload Pages artifact (from site/)
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages # NOT AN ERROR: This must be 'github-pages' to deploy to GitHub Pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: D4) Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: D5) Add deployment summary
+        run: |
+          echo "## Documentation Deployed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Site URL:** ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "View your documentation at the link above." >> $GITHUB_STEP_SUMMARY

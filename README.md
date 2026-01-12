@@ -1,116 +1,223 @@
 # datafun-03-analytics
 
-## Overview
-This project demonstrates how to fetch and process various types of 
-data (Excel, JSON, text, and CSV) using Python. 
+> Professional Python project: working with data files for analytics.
 
-The repository includes:
+## Project Planning
 
-- Four example fetchers: Scripts to retrieve data from the web.
-- Four example processors: Scripts to analyze and process the fetched data.
+Think about some information you would like to process.
 
-Start by running the examples to understand their functionality, and then build your own scripts to fetch and process data of your choice (using each of these example types).
+- What format is the data?
+- Is the data static (e.g., in files) - or in motion (e.g., social media streams)
+- If the data is in files, what kind of files are they?
+- Common data files include text, csv, json, Excel (and other spreadsheets)
+  A critical skill in data analytics is being able to read and process a wide variety of data files.
+  Python is popular partly because it makes building pipelines that read, process, and write information easy.
 
 ---
-## Project Workflow
 
-### Step 1. Set Up Your Project
-1. Create a GitHub repo with default README.md (you'll need to manually add these example files).
-2. Clone your new repo down to your machine. 
-3. Open the folder in VS Code.
-4. Add a .gitignore file.
-5. Install the required packages - see [requirements.txt](requirements.txt).
+## Three Workflows
 
-Full disclosure: We teach building repos from scratch because we assume students want to learn to create their own novel projects. 
-However, if you want to get a local copy of this repo down to your machine, you can click the "Use this template" green button to copy it all into your account.  
+There are three workflows for analytics projects.
 
-### Step 2. Run the Examples
-If you started with your own repo, copy the files from this GitHub as needed. 
-If you cloned the template, you'll have the example files already. 
+- 01: Set Up Machine (Once Per Machine)
+- 02: Set Up Project (Once Per Project)
+- 03: Daily Workflow (Working With Python Project Code)
 
-Read, review, and run each example script. 
-Open a terminal in the root project folder and run the appropriate 
-command for your operating system. 
-For example, these generally work on Windows. 
-Adjust the commands to work for your machine, 
-e.g. use python3 if Mac/Linux. 
+## 01: Set Up Machine (Once Per Machine)
+
+Follow the detailed instructions at:
+[**01. Set Up Your Machine**](https://denisecase.github.io/pro-analytics-02/01-set-up-machine/)
+
+🛑 All steps must be completed and verified successfully.
+
+## 02: Set Up Project (Once Per Project)
+
+Follow the detailed instructions at:
+[**02. Set Up Your Project**](https://denisecase.github.io/pro-analytics-02/02-set-up-project/)
+
+Detailed instructions are provided to:
+
+1. Sign in to GitHub, open this repository in your browser, and click **Copy this template** to get a copy in **YOURACCOUNT**.
+2. Enable GitHub Pages.
+3. Open a **machine terminal** in your `Repos` folder and clone your new repo.
+4. Change directory into the repo, open the project in VS Code, and install recommended extensions.
+5. Set up a project Python environment (managed by `uv`) and align VS Code with it.
+
+Use the instructions above to get it ALL set up correctly.
+Most people open a terminal on their machine (not VS Code), open in their Repos folder and run:
 
 ```shell
-py fetch_scripts/example_get_csv.py
-py fetch_scripts/example_get_excel.py
-py fetch_scripts/example_get_json.py
-py fetch_scripts/example_get_text.py
+git clone https://github.com/YOURACCOUNT/datafun-03-analytics
 
-py process_scripts/example_process_csv.py
-py process_scripts/example_process_excel.py
-py process_scripts/example_process_json.py
-py process_scripts/example_process_text.py
-
+cd datafun-03-analytics
+code .
 ```
 
-TODO: Replace the example commands with the actual commands used on your machine.
-Ensure all example scripts run without errors before proceeding.
- 
-### Step 3. Create and Run Your Data Fetchers
-1. Find data files on the web for each type (CSV, Excel, JSON, and text).  
-2. Create your own Python script to fetch each type of data and save it in a folder named **data**.
-3. Name your scripts:
-   1. yourname_get_csv.py
-   2. yourname_get_excel.py
-   3. yourname_get_json.py
-   4. yourname_get_text.py
-4. Implement your data-processing logic in small steps:
-   - Fetch data for one file type.
-   - Test, verify, and Git add-commit-push.
-  
-## Step 4. Create and Run Your Data Processors
-1. Determine a simple metric from each of your data files.  
-2. Create your own Python script to read the data, process it, and save it in a folder named **data_processed**.
-3. Name your scripts:
-   1. yourname_process_csv.py
-   2. yourname_process_excel.py
-   3. yourname_process_json.py
-   4. yourname_process_text.py
-4. Work incrementally, using git add-commit-push after each bit of progress. 
+When VS Code opens, accept the Extension Recommendations (click **`Install All`** or similar when asked).
 
-## Step 5. Update README.md to Describe Your Work
-1. In your README.md, list each of your fetchers with a short description.
-2. In your README.md, list each of your processors with a short description of what it does. 
-3. Include the execution commands to run your fetchers and processors. 
+Use VS Code menu option `Terminal` / `New Terminal` to open a **VS Code terminal** in the root project folder.
+Run the following commands, one at a time, hitting ENTER after each:
+
+```shell
+uv self update
+uv python pin 3.14
+uv sync --extra dev --extra docs --upgrade
+```
+
+If asked: "We noticed a new environment has been created. Do you want to select it for the workspace folder?" Click **"Yes"**.
+
+If successful, you'll see a new `.venv` folder appear in the root project folder.
+
+Optional (recommended): install and run pre-commit checks:
+
+```shell
+uvx pre-commit install
+git add -A
+uvx pre-commit run --all-files
+```
+
+🛑 Do not continue until all REQUIRED steps are complete and verified.
+
+## 03: Daily Workflow (Working With Python Project Code)
+
+Follow the detailed instructions at:
+[**03. Daily Workflow**](https://denisecase.github.io/pro-analytics-02/03-daily-workflow/)
+
+Commands are provided below to:
+
+1. Git pull
+2. Run and check the Python files
+3. Build and serve docs
+4. Save progress with Git add-commit-push
+5. Update project files
+
+VS Code should have only this project (datafun-03-analytics) open.
+Use VS Code menu option `Terminal` / `New Terminal` and run the following commands:
+
+```shell
+git pull
+```
+
+In the same VS Code terminal, run any Python source files:
+
+```shell
+uv run python src/datafun_03_analytics/app_case.py
+uv run python src/datafun_03_analytics/app_yourname.py
+```
+
+If a command fails, verify:
+
+- Only this project is open in VS Code.
+- The terminal is open in the project root folder.
+- The `uv sync --extra dev --extra docs --upgrade` command completed successfully.
+
+Hint: if you run `ls` in the terminal, you should see files including `pyproject.toml`, `README.md`, and `uv.lock`.
+
+Run Python checks and tests (as available):
+
+```shell
+uv run ruff format .
+uv run ruff check . --fix
+uv run pytest --cov=src --cov-report=term-missing
+```
+
+Build and serve docs (hit **CTRL+c** in the VS Code terminal to quit serving):
+
+```shell
+uv run mkdocs build --strict
+uv run mkdocs serve
+```
+
+While editing project code and docs, repeat the commands above to run files, check them, and rebuild docs as needed.
+
+Save progress frequently (some tools may make changes; you may need to **re-run git `add` and `commit`** to ensure everything gets committed before pushing):
+
+```shell
+git add -A
+git commit -m "update"
+git push -u origin main
+```
+
+Additional details and troubleshooting are available in the [Pro-Analytics-02 Documentation](https://denisecase.github.io/pro-analytics-02/).
 
 ---
 
-## Helpful Documentation
-If you're unsure about any of the setup steps or tools, consult these resources:
-- [requests library documentation](https://docs.python-requests.org)
-- [GitHub: Create and Clone a Repo](prereqs/01-CreateAndClone.md)
-- [Set Up a Virtual Environment](docs/02-SetUpVirtualEnv.md)
-- [Create a .gitignore File](docs/03-CreateGitIgnore.md)
-- [Using Git: Add-Commit-Push](docs/04-GitAddCommitPush.md)
+## Project Objectives
+
+### Project Task 1. Personalize Your Documentation Links
+
+Open [mkdocs.yaml](./mkdocs.yaml).
+This file configures the associated project documentation website (powered by MkDocs)
+Use CTRL+f to find each occurrence of the source GitHub account (e.g. `denisecase`).
+Change each occurrence to point to your GitHub account instead (spacing and capitalization MUST match the URL of your GitHub account **exactly**.)
+
+### Project Task 2. Personalize Your Python File
+
+1. Rename `app_yourname.py` to reflect your name or alias.
+
+- Find the file the file in the VS Code Explorer window (top icon on the left).
+- Right-click / Rename.
+- Follow conventions: name Python files in lower_snake_case, words joined with underscores, and using `.py` extension.
+
+2. Edit this README.md file to change the run command to call your file instead.
+   Use CTRL+f to search for `app_yourname.py` and replace all occurrences exactly.
+3. Preview this README.md to make sure it still appears correctly.
+   - Find README.md in the VS Code Explorer window (top icon on the left)
+   - Right-click / Preview
+   - Fix any issues.
+4. Run the updated command to execute **your** Python script.
+
+### Project Task 3. Implement Your Python File
+
+1. Read the example code carefully **before** starting.
+2. Open your file. Search for "TODO" items. VS Code has icons down the left. Use either TODO Tree (tree, at the bottom) or Search (second from top).
+3. Complete each TODO carefully, one at a time.
+4. After implementing a TODO, paste your run command in the terminal and hit Enter to re-run it.
+5. When it runs without errors, delete the associated TODO command.
+6. Keep working through each TODO.
+7. When you finish, there should be **zero TODO occurrences** in your project.
+
+**Save often**: After making any useful progress, follow the steps to git add-commit-push.
 
 ---
 
-### Tips
-- Use descriptive filenames for the data you fetch - and proper file extensions.
-- Work incrementally—verify each small step works before moving to the next.
-- The examples are required reading - use them to learn and understand first. 
-- Test each script carefully before proceeding.
-- Use meaningful commit messages when pushing to GitHub to document your progress.
+## Notes
 
----
-## Review Commit History
-Once your project is complete, review your commit history in GitHub under the **Commits** tab. 
-Ensure your commit messages are clear and professional.
+- You do not need to add to or modify `tests/`. They are provided for example only.
+- You do not need to view or modify any of the supporting **config files**.
+- Many of the repo files are silent helpers. Explore as you like, but nothing is required.
+- You do NOT need to understand everything. Understanding builds naturally over time.
+- Use the **UP ARROW** and **DOWN ARROW** in the terminal to scroll through past commands.
+- Use `CTRL+f` to find (and replace) with in a file.
 
----
-## Finalize GitHub
+## Troubleshooting >>> or ...
 
-Make sure the following requirements have been met:
+If you see something like this in your terminal: `>>>` or `...`
+You accidentally started Python interactive mode.
+It happens.
+Press `Ctrl+c` (both keys together) or `Ctrl+Z` then `Enter` on Windows.
 
-- [ ] You have committed a useful .gitignore file.
-- [ ] You have committed a useful logs/project_log.log file. 
-- [ ] All example scripts executed successfully.
-- [ ] Four fetcher scripts created and executed.
-- [ ] Four processor scripts created and functional.
-- [ ] README.md includes explanations for fetchers and processors with commands for execution.
-- [ ] Each Python file contains a docstring with its purpose and input/output details.
+## Resources
+
+- [Pro-Analytics-02](<[./docs/pro-tips.md](https://denisecase.github.io/pro-analytics-02/)>) - guide to professional Python
+- [ANNOTATIONS.md](./ANNOTATIONS.md) - REQ/WHY/OBS annotations used
+- [INSTRUCTORS.md](./docs/root/INSTRUCTORS.md) - guidance and notes for instructors and maintainers
+- [POLICIES.md](./docs/root/POLICIES.md) - project rules and expectations that apply to all contributors
+- [SKILLS.md](./docs/root/SKILLS.md) - skills, concepts, and professional practices (there are many)
+- [SE_MANIFEST.toml](./SE_MANIFEST.toml) - project intent, scope, and role
+
+## Citation
+
+[CITATION.cff](./CITATION.cff) - TODO: update author and repository fields to reflect your creative work
+
+<!--
+WHY: Support correct citation and attribution.
+-->
+
+## License
+
+[MIT](./LICENSE)
+
+<!--
+WHY: Provide terms of reuse and limits of liability.
+-->

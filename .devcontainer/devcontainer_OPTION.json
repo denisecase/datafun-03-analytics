@@ -1,0 +1,27 @@
+{
+  "name": "Python 3.14 (uv-based)",
+  "image": "mcr.microsoft.com/devcontainers/python:3.14",
+
+  "postCreateCommand": "uv sync --extra dev --extra docs --upgrade",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "editorconfig.editorconfig",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml",
+        "yzhang.markdown-all-in-one"
+      ]
+    }
+  },
+
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+  "forwardPorts": []
+}

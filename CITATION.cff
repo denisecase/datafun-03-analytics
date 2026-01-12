@@ -1,0 +1,81 @@
+# ============================================================
+# CITATION.cff (How to cite this project)
+# ============================================================
+
+# REQ.UNIVERSAL: Professional open projects SHOULD include CITATION.cff.
+# WHY: Support correct citation and attribution.
+# ALT: Internal or private repositories may omit citation metadata.
+# CUSTOM: Update author, repository, license, and keyword fields as needed.
+# USAGE: See https://citation-file-format.github.io/ for details.
+
+cff-version: "1.2.0"
+type: software
+
+title: "Data Analytics Fundamentals Project 03: Core Analytics in Python"
+version: "0.9.0"
+date-released: "2026-01-11"
+
+authors:
+  - family-names: Case
+    given-names: Denise M.
+    orcid: "https://orcid.org/0000-0001-6165-7389"
+    affiliation: "Northwest Missouri State University, School of Computer Science and Information Systems, Maryville, MO, USA"
+
+repository-code: "https://github.com/denisecase/datafun-03-analytics"
+url: "https://github.com/denisecase/datafun-03-analytics"
+license: MIT
+
+abstract: >
+  Core data analytics project covering descriptive statistics, data structures,
+  data ingestion, and exploratory analysis using Python source files.
+  Structured datasets (CSV, JSON, Excel) and text data are used to implement
+  modular analytic logic, apply relational data concepts,
+  and introduce time series and predictive techniques
+  within a professional, reproducible project workflow.
+
+keywords:
+  # identity
+  - data analytics
+  - python
+  - descriptive-statistics
+  - data-structures
+  - data-ingestion
+  - exploratory-data-analysis
+  - tabular-data
+  - csv
+  - json
+  - sql
+  - time-series
+  - predictive-analytics
+  - logging
+
+  # audience
+  - education
+  - teaching
+  - learning
+  - students
+  - instructors
+  - computer-science-education
+  - data-analytics-education
+
+  # practices
+  - professional-python
+  - src-layout
+  - ci-cd
+  - github-actions
+  - reproducible-workflows
+  - software-quality
+  - professional-practice
+
+  # tools and ecosystem
+  - python
+  - pandas
+  - git
+  - github
+  - pre-commit
+  - open-source
+  - uv
+  - ruff
+  - mkdocs
+
+message: "If using this work, please cite it as described in this file."

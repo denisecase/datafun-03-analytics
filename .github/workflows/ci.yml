@@ -1,0 +1,110 @@
+# .github/workflows/ci.yml
+name: CI
+
+# WHY: Validate repo contents on pushes to main branch and pull requests.
+# OBS: This workflow validates only; it never edits or deploys.
+
+on:
+  push:
+    branches: [main] # WHY: Run when pushing to main branch.
+  pull_request:
+    branches: [main] # WHY: Run on pull requests targeting main branch.
+  workflow_dispatch: # WHY: Allow manual triggering from Actions tab.
+
+permissions: # WHY: Use least privileges required.
+  contents: read
+
+env:
+  PYTHONUNBUFFERED: "1" # WHY: Real-time logging.
+  PYTHONIOENCODING: "utf-8" # WHY: Ensure UTF-8 encoding for international characters.
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest # WHY: Linux environment matches most production deployments
+    timeout-minutes: 10 # WHY: Prevent hanging jobs. If over 30 mins, likely stuck.
+
+    steps:
+      # ============================================================
+      # ASSEMBLE: Get code and set up environment
+      # ============================================================
+
+      - name: A1) Checkout this repository
+        uses: actions/checkout@v6
+
+      - name: A2) Install uv (with caching)
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true # WHY: Speed up installs on subsequent runs
+          cache-dependency-glob: "uv.lock" # WHY: Only re-cache when dependencies change
+
+      - name: A3) Install Python 3.14
+        run: uv python install 3.14
+
+      - name: A4) Show tool versions
+        run: |
+          python --version
+          uv --version
+
+      - name: A5) Sync to install all dependencies
+        run: uv sync --extra dev --extra docs --upgrade
+
+      # ============================================================
+      # === BASELINE CHECKS: Validate code quality ===
+      # ============================================================
+
+      - name: B1) validate-pyproject (must be in pyproject.toml deps)
+        run: uv run validate-pyproject pyproject.toml
+
+      - name: B2) Ruff format (check only; no fixes)
+        run: uv run ruff format --check --diff .
+
+      - name: B3) Ruff lint (no fixes)
+        run: uv run ruff check .
+
+      # ============================================================
+      # === COVERAGE AND TESTS: Verify functionality ===
+      # ============================================================
+
+      - name: C1) Run pytest with coverage
+        run: |
+          if [ -d "tests" ] && [ -n "$(find tests -name 'test_*.py' -o -name '*_test.py')" ]; then
+            uv run pytest --verbose --cov=src --cov-report=term-missing --cov-report=xml
+          else
+            echo "No tests found - creating empty coverage report"
+            echo "## No Tests Found" >> $GITHUB_STEP_SUMMARY
+            echo "Please add test files to the tests/ directory." >> $GITHUB_STEP_SUMMARY
+            # Create empty coverage file so artifact upload doesn't fail
+            echo '<?xml version="1.0" ?><coverage></coverage>' > coverage.xml
+          fi
+
+      - name: C2) Upload test coverage to GitHub Summary
+        if: always()
+        run: |
+          echo "## Test Coverage Report" >> $GITHUB_STEP_SUMMARY
+          if [ -f ".coverage" ]; then
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            uv run coverage report >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No coverage data available." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: C3) Upload coverage artifact
+        if: always() && hashFiles('coverage.xml') != ''
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-report
+          path: coverage.xml
+          retention-days: 30
+
+      # ============================================================
+      # === DEPLOY: Build only, don't deploy yet ===
+      # ============================================================
+
+      - name: D1) Build docs (mkdocs --strict)
+        run: |
+          if [ -f "mkdocs.yml" ] || [ -f "mkdocs.yaml" ]; then
+            uv run mkdocs build --strict --verbose
+          else
+            echo "No mkdocs config found; skipping docs build."
+          fi
