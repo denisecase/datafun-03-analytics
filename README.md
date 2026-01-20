@@ -32,37 +32,41 @@ Follow the detailed instructions at:
 
 ## 02: Set Up Project (Once Per Project)
 
-Follow the detailed instructions at:
-[**02. Set Up Your Project**](https://denisecase.github.io/pro-analytics-02/02-set-up-project/)
+1. Get Repository: Sign in to GitHub, open this repository in your browser, and click **Copy this template** to get a copy in **YOURACCOUNT**.
 
-Detailed instructions are provided to:
+2. Configure Repository Settings:
+   - Select your repository **Settings** (the gear icon way on the right).
+   -  Go to **Pages** tab / Enable GitHub Pages / Build and deployment / set **Source** to **GitHub Actions**
+   -  Go to **Advanced Security** tab / Dependabot / **Dependabot security updates** / **Enable**
+   -  Go to **Advanced Security** tab / Dependabot / **Grouped security updates** / **Enable**
 
-1. Sign in to GitHub, open this repository in your browser, and click **Copy this template** to get a copy in **YOURACCOUNT**.
-2. Enable GitHub Pages.
-3. Open a **machine terminal** in your `Repos` folder and clone your new repo.
-4. Change directory into the repo, open the project in VS Code, and install recommended extensions.
-5. Set up a project Python environment (managed by `uv`) and align VS Code with it.
+3. Clone to local: Open a **machine terminal** in your **`Repos`** folder and clone your new repo.
 
-Use the instructions above to get it ALL set up correctly.
-Most people open a terminal on their machine (not VS Code), open in their Repos folder and run:
+  ```shell
+  git clone https://github.com/YOURACCOUNT/datafun-03-analytics
+  ```
 
-```shell
-git clone https://github.com/YOURACCOUNT/datafun-03-analytics
+4. Open project in VS Code: Change directory into the repo and open the project in VS Code by running `code .` ("code dot"):
 
-cd datafun-03-analytics
-code .
-```
+  ```shell
+  cd datafun-03-analytics
+  code .
+  ```
 
-When VS Code opens, accept the Extension Recommendations (click **`Install All`** or similar when asked).
+5. Install recommended extensions.
 
-Use VS Code menu option `Terminal` / `New Terminal` to open a **VS Code terminal** in the root project folder.
-Run the following commands, one at a time, hitting ENTER after each:
+   - When VS Code opens, accept the Extension Recommendations (click **`Install All`** or similar when asked).
 
-```shell
-uv self update
-uv python pin 3.14
-uv sync --extra dev --extra docs --upgrade
-```
+6. Set up a project Python environment (managed by `uv`) and align VS Code with it.
+
+   - Use VS Code menu option `Terminal` / `New Terminal` to open a **VS Code terminal** in the root project folder.
+   - Run the following commands, one at a time, hitting ENTER after each:
+
+    ```shell
+    uv self update
+    uv python pin 3.14
+    uv sync --extra dev --extra docs --upgrade
+    ```
 
 If asked: "We noticed a new environment has been created. Do you want to select it for the workspace folder?" Click **"Yes"**.
 
@@ -75,6 +79,9 @@ uvx pre-commit install
 git add -A
 uvx pre-commit run --all-files
 ```
+
+Fore more detailed instructions and troubleshooting, see the pro guide at:
+[**02. Set Up Your Project**](https://denisecase.github.io/pro-analytics-02/02-set-up-project/)
 
 🛑 Do not continue until all REQUIRED steps are complete and verified.
 
@@ -199,7 +206,7 @@ Press `Ctrl+c` (both keys together) or `Ctrl+Z` then `Enter` on Windows.
 
 ## Resources
 
-- [Pro-Analytics-02](<[./docs/pro-tips.md](https://denisecase.github.io/pro-analytics-02/)>) - guide to professional Python
+- [Pro-Analytics-02](https://denisecase.github.io/pro-analytics-02/) - guide to professional Python
 - [ANNOTATIONS.md](./ANNOTATIONS.md) - REQ/WHY/OBS annotations used
 - [INSTRUCTORS.md](./docs/root/INSTRUCTORS.md) - guidance and notes for instructors and maintainers
 - [POLICIES.md](./docs/root/POLICIES.md) - project rules and expectations that apply to all contributors
