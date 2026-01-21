@@ -8,27 +8,28 @@
 # WHY: Centralizes project configuration.
 
 [project]
-name = "datafun-02-automation" # CUSTOM: Package distribution name (use lowercase and dashes).
+name = "datafun-03-analytics" # CUSTOM: Package distribution name (use lowercase and dashes).
 readme = "README.md"
 requires-python = ">=3.14"
 version = "0.1.0"
 
 dependencies = [
     # REQ.DEPS: External packages used by the project code.
-    "datafun-toolkit>=0.9.4",
+    "datafun-toolkit>=0.9.5",
+    "openpyxl>=3.1.2",
 ]
 
 [project.optional-dependencies]
 # WHY: Optional dependency groups keep the core install clean and focused.
 dev = [
     # REQ.DEV.DEPS: External packages used for linting, testing, type checking, etc.
-    "bandit>=1.9.2",
+    "bandit>=1.9.3",
     "packaging>=25.0",
     "pre-commit>=4.5.1",
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
     "pyright>=1.1.408",
-    "ruff>=0.14.10",
+    "ruff>=0.14.13",
     "validate-pyproject>=0.24.1",
 ]
 
@@ -38,7 +39,7 @@ docs = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.7.1",
     "mkdocs-static-i18n>=1.3.0",
-    "mkdocstrings[python]>=1.0.0",
+    "mkdocstrings[python]>=1.0.1",
 ]
 
 # === PYRIGHT (TYPE CHECKING HELPS FIND COMMON ERRORS BEFORE THE CODE RUNS) ===
@@ -59,6 +60,10 @@ typeCheckingMode = "strict" # strict | basic | off
 useLibraryCodeForTypes = false
 venv = ".venv"
 venvPath = "."
+# CUSTOM: Added when working with dynamic data files with unknown types.
+reportOptionalSubscript = false
+reportUnknownMemberType = false
+reportUnknownVariableType = false
 
 # === PYTEST (VERIFY LOGIC) ===
 

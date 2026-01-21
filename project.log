@@ -9,3 +9,84 @@
 2026-01-11 22:52:32 | INFO | P03 | START main()
 2026-01-11 22:52:32 | INFO | P03 | END main()
 2026-01-11 22:52:37 | INFO | P03 | END main()
+2026-01-20 15:27:32 | INFO | P03 | === RUN START ===
+2026-01-20 15:27:32 | INFO | P03 | project=Analytics: Read, Process, and Write Data
+2026-01-20 15:27:32 | INFO | P03 | repo_dir=datafun-03-analytics
+2026-01-20 15:27:32 | INFO | P03 | python=3.14.0
+2026-01-20 15:27:32 | INFO | P03 | os=Windows 11
+2026-01-20 15:27:32 | INFO | P03 | shell=powershell
+2026-01-20 15:27:32 | INFO | P03 | cwd=.
+2026-01-20 15:27:32 | INFO | P03 | github_actions=False
+2026-01-20 15:27:32 | INFO | P03 | START main()
+2026-01-20 15:27:32 | INFO | P03 | END main()
+2026-01-20 15:27:38 | INFO | P03 | END main()
+2026-01-21 07:22:02 | INFO | P03 | === RUN START ===
+2026-01-21 07:22:02 | INFO | P03 | project=P03: Read, Process, Verify, Write (ETVL)
+2026-01-21 07:22:02 | INFO | P03 | repo_dir=datafun-03-analytics
+2026-01-21 07:22:02 | INFO | P03 | python=3.14.0
+2026-01-21 07:22:02 | INFO | P03 | os=Windows 11
+2026-01-21 07:22:02 | INFO | P03 | shell=powershell
+2026-01-21 07:22:02 | INFO | P03 | cwd=.
+2026-01-21 07:22:02 | INFO | P03 | github_actions=False
+2026-01-21 07:22:02 | INFO | P03 | START main()
+2026-01-21 07:22:02 | INFO | P03 | CSV: START
+2026-01-21 07:22:02 | INFO | P03 | CSV: wrote C:\Users\edaci\Documents\datafun\datafun-03-analytics\data\processed\csv_ladder_score_stats.txt
+2026-01-21 07:22:02 | INFO | P03 | CSV: END
+2026-01-21 07:22:02 | INFO | P03 | XLSX: START
+2026-01-21 07:22:02 | INFO | P03 | XLSX: wrote C:\Users\edaci\Documents\datafun\datafun-03-analytics\data\processed\xlsx_feedback_github_count.txt
+2026-01-21 07:22:02 | INFO | P03 | XLSX: END
+2026-01-21 07:22:02 | INFO | P03 | JSON: START
+2026-01-21 07:22:02 | INFO | P03 | JSON: wrote C:\Users\edaci\Documents\datafun\datafun-03-analytics\data\processed\json_astronauts_by_craft.txt
+2026-01-21 07:22:02 | INFO | P03 | JSON: END
+2026-01-21 07:22:02 | INFO | P03 | TXT: START
+2026-01-21 10:17:41 | INFO | P03 | === RUN START ===
+2026-01-21 10:17:41 | INFO | P03 | project=Pipelines: Read, Process, Verify, Write (ETVL)
+2026-01-21 10:17:41 | INFO | P03 | repo_dir=datafun-03-analytics
+2026-01-21 10:17:41 | INFO | P03 | python=3.14.0
+2026-01-21 10:17:41 | INFO | P03 | os=Windows 11
+2026-01-21 10:17:41 | INFO | P03 | shell=powershell
+2026-01-21 10:17:41 | INFO | P03 | cwd=.
+2026-01-21 10:17:41 | INFO | P03 | github_actions=False
+2026-01-21 10:17:41 | INFO | P03 | START main()
+2026-01-21 10:17:41 | INFO | P03 | CSV: START
+2026-01-21 10:17:41 | INFO | P03 | CSV: wrote C:\Users\edaci\Documents\datafun\datafun-03-analytics\data\processed\csv_ladder_score_stats.txt
+2026-01-21 10:17:41 | INFO | P03 | CSV: END
+2026-01-21 10:17:41 | INFO | P03 | XLSX: START
+2026-01-21 10:17:41 | INFO | P03 | XLSX: wrote C:\Users\edaci\Documents\datafun\datafun-03-analytics\data\processed\xlsx_feedback_github_count.txt
+2026-01-21 10:17:41 | INFO | P03 | XLSX: END
+2026-01-21 10:17:41 | INFO | P03 | JSON: START
+2026-01-21 10:17:41 | INFO | P03 | JSON: wrote C:\Users\edaci\Documents\datafun\datafun-03-analytics\data\processed\json_astronauts_by_craft.txt
+2026-01-21 10:17:41 | INFO | P03 | JSON: END
+2026-01-21 10:17:41 | INFO | P03 | TXT: START
+2026-01-21 10:19:35 | INFO | P03 | === RUN START ===
+2026-01-21 10:19:35 | INFO | P03 | project=Pipelines: Read, Process, Verify, Write (ETVL)
+2026-01-21 10:19:35 | INFO | P03 | repo_dir=datafun-03-analytics
+2026-01-21 10:19:35 | INFO | P03 | python=3.14.0
+2026-01-21 10:19:35 | INFO | P03 | os=Windows 11
+2026-01-21 10:19:35 | INFO | P03 | shell=powershell
+2026-01-21 10:19:35 | INFO | P03 | cwd=.
+2026-01-21 10:19:35 | INFO | P03 | github_actions=False
+2026-01-21 10:19:35 | INFO | P03 | START main()
+2026-01-21 10:19:35 | INFO | P03 | CSV: START
+2026-01-21 10:19:35 | INFO | P03 | CSV: wrote C:\Users\edaci\Documents\datafun\datafun-03-analytics\data\processed\csv_ladder_score_stats.txt
+2026-01-21 10:19:35 | INFO | P03 | CSV: END
+2026-01-21 10:19:35 | INFO | P03 | XLSX: START
+2026-01-21 10:19:35 | INFO | P03 | XLSX: wrote C:\Users\edaci\Documents\datafun\datafun-03-analytics\data\processed\xlsx_feedback_github_count.txt
+2026-01-21 10:19:35 | INFO | P03 | XLSX: END
+2026-01-21 10:19:35 | INFO | P03 | JSON: START
+2026-01-21 10:19:35 | INFO | P03 | JSON: wrote C:\Users\edaci\Documents\datafun\datafun-03-analytics\data\processed\json_astronauts_by_craft.txt
+2026-01-21 10:19:35 | INFO | P03 | JSON: END
+2026-01-21 10:19:35 | INFO | P03 | TXT: START
+2026-01-21 10:19:35 | INFO | P03 | TXT: wrote C:\Users\edaci\Documents\datafun\datafun-03-analytics\data\processed\txt_summary.txt
+2026-01-21 10:19:35 | INFO | P03 | TXT: END
+2026-01-21 10:19:35 | INFO | P03 | END main()
+2026-01-21 10:32:56 | INFO | P03 | === RUN START ===
+2026-01-21 10:32:56 | INFO | P03 | project=Pipelines: Read, Process, Verify, Write (ETVL)
+2026-01-21 10:32:56 | INFO | P03 | repo_dir=datafun-03-analytics
+2026-01-21 10:32:56 | INFO | P03 | python=3.14.0
+2026-01-21 10:32:56 | INFO | P03 | os=Windows 11
+2026-01-21 10:32:56 | INFO | P03 | shell=powershell
+2026-01-21 10:32:56 | INFO | P03 | cwd=.
+2026-01-21 10:32:56 | INFO | P03 | github_actions=False
+2026-01-21 10:32:56 | INFO | P03 | START main()
+2026-01-21 10:32:56 | INFO | P03 | END main()

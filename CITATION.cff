@@ -11,9 +11,9 @@
 cff-version: "1.2.0"
 type: software
 
-title: "Data Analytics Fundamentals Project 03: Core Analytics in Python"
+title: "Data Analytics Fundamentals 03: Raw Data Pipelines and Analytics in Python"
 version: "0.9.0"
-date-released: "2026-01-11"
+date-released: "2026-01-21"
 
 authors:
   - family-names: Case
@@ -51,10 +51,6 @@ keywords:
 
   # audience
   - education
-  - teaching
-  - learning
-  - students
-  - instructors
   - computer-science-education
   - data-analytics-education
 

@@ -56,7 +56,7 @@ includes = [
   "simple descriptive statistics",
   "writing processed outputs to files",
   "logging data processing steps",
-  "parallel data-processing pipelines",
+  "data-processing pipelines",
 ]
 excludes = [
   "relational databases",

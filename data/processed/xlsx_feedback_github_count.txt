@@ -1,0 +1,4 @@
+XLSX Word Count Result
+Word: GitHub
+Column: A
+Count: 19

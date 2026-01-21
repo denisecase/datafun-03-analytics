@@ -4,14 +4,40 @@
 
 ## Project Planning
 
-Think about some information you would like to process.
+This project illustrates ETL data pipelines processing raw data with the following types:
 
-- What format is the data?
-- Is the data static (e.g., in files) - or in motion (e.g., social media streams)
-- If the data is in files, what kind of files are they?
-- Common data files include text, csv, json, Excel (and other spreadsheets)
-  A critical skill in data analytics is being able to read and process a wide variety of data files.
-  Python is popular partly because it makes building pipelines that read, process, and write information easy.
+- CSV (comma separated values)
+- JSON (structured data commonly used to exchange information over the web)
+- Text (excerpt from _Romeo and Juliet_)
+- Excel file (using the `openpyxl` package added to `pyproject.toml`)
+
+The working example illustrates a complete pipeline.
+Use the working example and your resources to create your own processing pipelines.
+
+Think about some raw data you would like to process.
+
+- What format is the data? Choose from csv, json, text, or xlsx.
+- Choose static data (e.g., in files), rather than data in motion (e.g., social media streams)
+- Being able to read and process a wide variety of data files is critical in professional analytics.
+- Python is popular partly because it makes building data pipelines relatively easy.
+
+## Project Specific Choices for Data Pipeline projects
+
+We've turned off some PyRight type checks since we are working with raw data pipelines.
+- WHY: We don't know what types things are until after we read them.
+- See pyproject.toml and the [tool.pyright] section for details.
+
+We use keyword-only function arguments when defining our ETL functions.
+- In our functions, you'll see a `*,`.
+- The asterisk can appear anywhere in the list of parameters.
+- EVERY argument AFTER the asterisk must be passed using the named keyword argument (also called kwarg), rather than by position.
+- WHY: Requiring named arguments prevents argument-order mistakes.
+- It also makes our function calls self-documenting, which can be especially helpful in data-processing pipelines.
+
+## Large Project File
+
+This repo includes a 2.2 MB Excel data file.
+We have increased the size of the "large file" check in our pre-commit hooks.
 
 ---
 
@@ -111,6 +137,15 @@ In the same VS Code terminal, run any Python source files:
 uv run python src/datafun_03_analytics/app_case.py
 uv run python src/datafun_03_analytics/app_yourname.py
 ```
+
+OR: Run them as modules (preferred):
+
+```shell
+uv run python -m datafun_03_analytics.app_case
+uv run python -m datafun_03_analytics.app_yourname
+```
+
+For more see: [Running Python Reliably](https://denisecase.github.io/pro-analytics-02/06-python/running-python/).
 
 If a command fails, verify:
 
