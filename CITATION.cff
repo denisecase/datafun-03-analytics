@@ -12,8 +12,8 @@ cff-version: "1.2.0"
 type: software
 
 title: "Data Analytics Fundamentals 03: Raw Data Pipelines and Analytics in Python"
-version: "0.9.0"
-date-released: "2026-01-21"
+version: "1.0.0"
+date-released: "2026-04-13"
 
 authors:
   - family-names: Case
@@ -72,6 +72,9 @@ keywords:
   - open-source
   - uv
   - ruff
-  - mkdocs
+  - pre-commit
+  - pyright
+  - hatchling
+  - zensical
 
 message: "If using this work, please cite it as described in this file."

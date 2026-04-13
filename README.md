@@ -1,8 +1,22 @@
 # datafun-03-analytics
 
+[![Python 3.14+](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](#)
+[![MIT](https://img.shields.io/badge/license-see%20LICENSE-yellow.svg)](./LICENSE)
+
 > Professional Python project: working with data files for analytics.
 
-## Project Planning
+Data analytics requires a variety of skills.
+This course builds capabilities through working projects.
+
+In the age of generative AI, durable skills are grounded in real work:
+setting up a professional environment,
+reading and running code,
+understanding the logic,
+and pushing work to a shared repository.
+Each project follows the structure of professional Python projects.
+We learn by doing.
+
+## This Project
 
 This project illustrates ETL data pipelines processing raw data with the following types:
 
@@ -24,10 +38,12 @@ Think about some raw data you would like to process.
 ## Project Specific Choices for Data Pipeline projects
 
 We've turned off some PyRight type checks since we are working with raw data pipelines.
+
 - WHY: We don't know what types things are until after we read them.
 - See pyproject.toml and the [tool.pyright] section for details.
 
 We use keyword-only function arguments when defining our ETL functions.
+
 - In our functions, you'll see a `*,`.
 - The asterisk can appear anywhere in the list of parameters.
 - EVERY argument AFTER the asterisk must be passed using the named keyword argument (also called kwarg), rather than by position.
@@ -39,227 +55,136 @@ We use keyword-only function arguments when defining our ETL functions.
 This repo includes a 2.2 MB Excel data file.
 We have increased the size of the "large file" check in our pre-commit hooks.
 
----
+## DEBUG HELP: If you see "import block is unsorted",
 
-## Three Workflows
+Mouse over, click lightbulb icon for suggestions. and select "Organize Imports".
 
-There are three workflows for analytics projects.
+## DEBUG HELP: If you see "Type of run_csv_pipeline is unknown",
 
-- 01: Set Up Machine (Once Per Machine)
-- 02: Set Up Project (Once Per Project)
-- 03: Daily Workflow (Working With Python Project Code)
+Ensure you have set up your .venv.
+View / Command Palette: Python: Select Interpreter.
+Select the .venv in this project folder.
+View / Command Palette: Developer: Reload Window.
 
-## 01: Set Up Machine (Once Per Machine)
+## Working Files
 
-Follow the detailed instructions at:
-[**01. Set Up Your Machine**](https://denisecase.github.io/pro-analytics-02/01-set-up-machine/)
+You'll work with just these areas:
 
-🛑 All steps must be completed and verified successfully.
+- **docs/** - the project narrative and documentation
+- **src/datafun** - where the magic happens
+- **pyproject.toml** - update authorship & links
+- **zensical.toml** - update authorship & links
 
-## 02: Set Up Project (Once Per Project)
+## Instructions
 
-1. Get Repository: Sign in to GitHub, open this repository in your browser, and click **Copy this template** to get a copy in **YOURACCOUNT**.
+Follow the [step-by-step workflow guide](https://denisecase.github.io/pro-analytics-02/workflow-b-apply-example-project/) to complete:
 
-2. Configure Repository Settings:
-   - Select your repository **Settings** (the gear icon way on the right).
-   -  Go to **Pages** tab / Enable GitHub Pages / Build and deployment / set **Source** to **GitHub Actions**
-   -  Go to **Advanced Security** tab / Dependabot / **Dependabot security updates** / **Enable**
-   -  Go to **Advanced Security** tab / Dependabot / **Grouped security updates** / **Enable**
+1. Phase 1. **Start & Run**
+2. Phase 2. **Change Authorship**
+3. Phase 3. **Read & Understand**
+4. Phase 4. **Modify**
+5. Phase 5. **Apply**
 
-3. Clone to local: Open a **machine terminal** in your **`Repos`** folder and clone your new repo.
+## Challenges
 
-  ```shell
-  git clone https://github.com/YOURACCOUNT/datafun-03-analytics
-  ```
+Challenges are expected.
+Sometimes instructions may not quite match your operating system.
+When issues occur, share screenshots, error messages, and details about what you tried.
+Working through issues is part of implementing professional projects.
 
-4. Open project in VS Code: Change directory into the repo and open the project in VS Code by running `code .` ("code dot"):
+## Success
 
-  ```shell
-  cd datafun-03-analytics
-  code .
-  ```
-
-5. Install recommended extensions.
-
-   - When VS Code opens, accept the Extension Recommendations (click **`Install All`** or similar when asked).
-
-6. Set up a project Python environment (managed by `uv`) and align VS Code with it.
-
-   - Use VS Code menu option `Terminal` / `New Terminal` to open a **VS Code terminal** in the root project folder.
-   - Run the following commands, one at a time, hitting ENTER after each:
-
-    ```shell
-    uv self update
-    uv python pin 3.14
-    uv sync --extra dev --extra docs --upgrade
-    ```
-
-If asked: "We noticed a new environment has been created. Do you want to select it for the workspace folder?" Click **"Yes"**.
-
-If successful, you'll see a new `.venv` folder appear in the root project folder.
-
-Optional (recommended): install and run pre-commit checks:
+After completing Phase 1. **Start & Run**, you'll have your own GitHub project,
+running on your machine, and running the example will print out:
 
 ```shell
+========================
+Executed successfully!
+========================
+```
+
+## Command Reference
+
+The commands below are used in the workflow guide above.
+They are provided here for convenience.
+
+Follow the guide for the **full instructions**.
+
+<details>
+<summary>Show command reference</summary>
+
+### In a machine terminal (open in your `Repos` folder)
+
+After you get a copy of this repo in your own GitHub account,
+open a machine terminal in your `Repos` folder:
+
+```shell
+# Replace username with YOUR GitHub username.
+git clone https://github.com/username/datafun-03-analytics
+
+cd datafun-03-analytics
+code .
+```
+
+### In a VS Code terminal
+
+```shell
+uv self update
+uv python pin 3.14
+uv sync --extra dev --extra docs --upgrade
+
 uvx pre-commit install
+
 git add -A
 uvx pre-commit run --all-files
-```
+# repeat if changes were made
+git add -A
+uvx pre-commit run --all-files
 
-Fore more detailed instructions and troubleshooting, see the pro guide at:
-[**02. Set Up Your Project**](https://denisecase.github.io/pro-analytics-02/02-set-up-project/)
+# run the module
+uv run python -m datafun.app_case
 
-🛑 Do not continue until all REQUIRED steps are complete and verified.
-
-## 03: Daily Workflow (Working With Python Project Code)
-
-Follow the detailed instructions at:
-[**03. Daily Workflow**](https://denisecase.github.io/pro-analytics-02/03-daily-workflow/)
-
-Commands are provided below to:
-
-1. Git pull
-2. Run and check the Python files
-3. Build and serve docs
-4. Save progress with Git add-commit-push
-5. Update project files
-
-VS Code should have only this project (datafun-03-analytics) open.
-Use VS Code menu option `Terminal` / `New Terminal` and run the following commands:
-
-```shell
-git pull
-```
-
-In the same VS Code terminal, run any Python source files:
-
-```shell
-uv run python src/datafun_03_analytics/app_case.py
-uv run python src/datafun_03_analytics/app_yourname.py
-```
-
-OR: Run them as modules (preferred):
-
-```shell
-uv run python -m datafun_03_analytics.app_case
-uv run python -m datafun_03_analytics.app_yourname
-```
-
-For more see: [Running Python Reliably](https://denisecase.github.io/pro-analytics-02/06-python/running-python/).
-
-If a command fails, verify:
-
-- Only this project is open in VS Code.
-- The terminal is open in the project root folder.
-- The `uv sync --extra dev --extra docs --upgrade` command completed successfully.
-
-Hint: if you run `ls` in the terminal, you should see files including `pyproject.toml`, `README.md`, and `uv.lock`.
-
-Run Python checks and tests (as available):
-
-```shell
+# do chores
 uv run ruff format .
 uv run ruff check . --fix
-uv run pytest --cov=src --cov-report=term-missing
-```
+uv run python -m pyright
+uv run pytest
+uv run zensical build
 
-Build and serve docs (hit **CTRL+c** in the VS Code terminal to quit serving):
-
-```shell
-uv run mkdocs build --strict
-uv run mkdocs serve
-```
-
-While editing project code and docs, repeat the commands above to run files, check them, and rebuild docs as needed.
-
-Save progress frequently (some tools may make changes; you may need to **re-run git `add` and `commit`** to ensure everything gets committed before pushing):
-
-```shell
+# save progress
 git add -A
 git commit -m "update"
 git push -u origin main
 ```
 
-Additional details and troubleshooting are available in the [Pro-Analytics-02 Documentation](https://denisecase.github.io/pro-analytics-02/).
-
----
-
-## Project Objectives
-
-### Project Task 1. Personalize Your Documentation Links
-
-Open [mkdocs.yaml](./mkdocs.yaml).
-This file configures the associated project documentation website (powered by MkDocs)
-Use CTRL+f to find each occurrence of the source GitHub account (e.g. `denisecase`).
-Change each occurrence to point to your GitHub account instead (spacing and capitalization MUST match the URL of your GitHub account **exactly**.)
-
-### Project Task 2. Personalize Your Python File
-
-1. Rename `app_yourname.py` to reflect your name or alias.
-
-- Find the file the file in the VS Code Explorer window (top icon on the left).
-- Right-click / Rename.
-- Follow conventions: name Python files in lower_snake_case, words joined with underscores, and using `.py` extension.
-
-2. Edit this README.md file to change the run command to call your file instead.
-   Use CTRL+f to search for `app_yourname.py` and replace all occurrences exactly.
-3. Preview this README.md to make sure it still appears correctly.
-   - Find README.md in the VS Code Explorer window (top icon on the left)
-   - Right-click / Preview
-   - Fix any issues.
-4. Run the updated command to execute **your** Python script.
-
-### Project Task 3. Implement Your Python File
-
-1. Read the example code carefully **before** starting.
-2. Open your file. Search for "TODO" items. VS Code has icons down the left. Use either TODO Tree (tree, at the bottom) or Search (second from top).
-3. Complete each TODO carefully, one at a time.
-4. After implementing a TODO, paste your run command in the terminal and hit Enter to re-run it.
-5. When it runs without errors, delete the associated TODO command.
-6. Keep working through each TODO.
-7. When you finish, there should be **zero TODO occurrences** in your project.
-
-**Save often**: After making any useful progress, follow the steps to git add-commit-push.
-
----
+</details>
 
 ## Notes
 
-- You do not need to add to or modify `tests/`. They are provided for example only.
-- You do not need to view or modify any of the supporting **config files**.
-- Many of the repo files are silent helpers. Explore as you like, but nothing is required.
-- You do NOT need to understand everything. Understanding builds naturally over time.
 - Use the **UP ARROW** and **DOWN ARROW** in the terminal to scroll through past commands.
-- Use `CTRL+f` to find (and replace) with in a file.
+- Use `CTRL+f` to find (and replace) text within a file.
 
-## Troubleshooting >>> or ...
+## Example Output
 
-If you see something like this in your terminal: `>>>` or `...`
-You accidentally started Python interactive mode.
-It happens.
-Press `Ctrl+c` (both keys together) or `Ctrl+Z` then `Enter` on Windows.
-
-## Resources
-
-- [Pro-Analytics-02](https://denisecase.github.io/pro-analytics-02/) - guide to professional Python
-- [ANNOTATIONS.md](./ANNOTATIONS.md) - REQ/WHY/OBS annotations used
-- [INSTRUCTORS.md](./docs/root/INSTRUCTORS.md) - guidance and notes for instructors and maintainers
-- [POLICIES.md](./docs/root/POLICIES.md) - project rules and expectations that apply to all contributors
-- [SKILLS.md](./docs/root/SKILLS.md) - skills, concepts, and professional practices (there are many)
-- [SE_MANIFEST.toml](./SE_MANIFEST.toml) - project intent, scope, and role
-
-## Citation
-
-[CITATION.cff](./CITATION.cff) - TODO: update author and repository fields to reflect your creative work
-
-<!--
-WHY: Support correct citation and attribution.
--->
-
-## License
-
-[MIT](./LICENSE)
-
-<!--
-WHY: Provide terms of reuse and limits of liability.
--->
+```text
+| INFO | P03 | ========================
+| INFO | P03 | START main()
+| INFO | P03 | ========================
+| INFO | P03 | ROOT_DIR = .
+| INFO | P03 | PROCESSED_DIR = data\processed
+| INFO | P03 | CSV: START
+| INFO | P03 | CSV: wrote C:\Repos\datafun\datafun-03-analytics\data\processed\csv_ladder_score_stats.txt
+| INFO | P03 | CSV: END
+| INFO | P03 | XLSX: START
+| INFO | P03 | XLSX: wrote C:\Repos\datafun\datafun-03-analytics\data\processed\xlsx_feedback_github_count.txt
+| INFO | P03 | XLSX: END
+| INFO | P03 | JSON: START
+| INFO | P03 | JSON: wrote C:\Repos\datafun\datafun-03-analytics\data\processed\json_astronauts_by_craft.txt
+| INFO | P03 | JSON: END
+| INFO | P03 | TXT: START
+| INFO | P03 | TXT: wrote C:\Repos\datafun\datafun-03-analytics\data\processed\txt_summary.txt
+| INFO | P03 | TXT: END
+| INFO | P03 | ========================
+| INFO | P03 | Executed successfully!
+| INFO | P03 | ========================
+```

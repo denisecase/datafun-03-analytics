@@ -1,41 +1,54 @@
-"""p3_text_pipeline.py - Text ETVL pipeline.
+"""case_text_pipeline.py - Text ETVL pipeline.
 
-ETVL:
-  E = Extract (read)
-  T = Transform (process)
-  V = Verify (check)
-  L = Load (write results to data/processed)
+Author: Denise Case
+Date: 2026-04
 
-CUSTOM: We turn off some of our PyRight type checks when working with raw data pipelines.
-WHY: We don't know what types things are until after we read them.
-OBS: See pyproject.toml and the [tool.pyright] section for details.
+  Practice key Python skills related to:
+    - ETVL pipeline structure (Extract, Transform, Verify, Load)
+    - reading text files line by line
+    - counting lines, words, and characters
+    - keyword-only function arguments
+    - error handling with raise
+    - writing results to a text file
 
-CUSTOM: We use keyword-only function arguments.
-In our functions, you'll see a `*,`.
-The asterisk can appear anywhere in the list of parameters.
-EVERY argument AFTER the asterisk must be passed
-using the named keyword argument (also called kwarg), rather than by position.
+  Paths (relative to repo root):
 
-WHY: Requiring named arguments prevents argument-order mistakes.
-It also makes our function calls self-documenting, which can be especially helpful in
-data-processing pipelines.
+    INPUT FILE:  data/raw/romeo_and_juliet.txt
+    OUTPUT FILE: data/processed/txt_summary.txt
+
+  Terminal command to run this file from the root project folder:
+
+    uv run python -m datafun.case_text_pipeline
+
+OBS:
+  Don't edit this file - it should remain a working example.
+  Copy it, rename it, and modify your copy.
 """
+
+# === DECLARE IMPORTS (BRING IN FREE CODE) ===
 
 from pathlib import Path
 from typing import Any
 
-# === DEFINE ETL STEP FUNCTIONS ===
-# === We add a VERIFY step to check data integrity ===
+# === SKILL: READING A TEXT FILE LINE BY LINE ===
+
+# file.readlines() reads the entire file and returns a list of strings.
+# Each string is one line, including the newline character at the end.
+# len(line.split()) counts the words in a line by splitting on whitespace.
+# len(line) counts every character including spaces and newlines.
+
+
+# === E: EXTRACT ===
 
 
 def extract_lines(*, file_path: Path) -> list[str]:
     """E: Read a text file into a list of lines.
 
-    Args:
+    Arguments:
         file_path: Path to input text file.
 
     Returns:
-            List of lines from the text file.
+        List of lines from the text file.
     """
     # Handle known possible error: no file at the path provided.
     if not file_path.exists():
@@ -45,10 +58,17 @@ def extract_lines(*, file_path: Path) -> list[str]:
         return f.readlines()
 
 
-def transform_line_word_char_counts(*, lines: list[str]) -> dict[str, int]:
-    """T: Create a simple summary: line count, word count, character count.
+# === T: TRANSFORM ===
 
-    Args:
+# Iterate over the list of lines to accumulate counts.
+# str.split() splits on any whitespace and returns a list of words.
+# len() counts items in any sequence - lines, words, or characters.
+
+
+def transform_line_word_char_counts(*, lines: list[str]) -> dict[str, int]:
+    """T: Summarize a list of lines: line count, word count, character count.
+
+    Arguments:
         lines: List of lines from the text file.
 
     Returns:
@@ -69,15 +89,17 @@ def transform_line_word_char_counts(*, lines: list[str]) -> dict[str, int]:
     }
 
 
+# === V: VERIFY ===
+
+# Check all expected keys are present and all counts are non-negative.
+# Catching this before Load prevents writing a corrupt result to disk.
+
+
 def verify_summary(*, summary: dict[str, int]) -> None:
     """V: Verify the summary has expected keys and non-negative values.
 
-    Args:
+    Arguments:
         summary: Dictionary with counts for 'lines', 'words', and 'chars'.
-
-    Raises:
-        KeyError: If expected keys are missing.
-        ValueError: If any count is negative.
 
     Returns:
         None
@@ -91,10 +113,13 @@ def verify_summary(*, summary: dict[str, int]) -> None:
             raise ValueError(f"Invalid {key} count: {summary[key]}")
 
 
+# === L: LOAD ===
+
+
 def load_summary_report(*, summary: dict[str, int], out_path: Path) -> None:
     """L: Write summary to a text file in data/processed.
 
-    Args:
+    Arguments:
         summary: Dictionary with counts for 'lines', 'words', and 'chars'.
         out_path: Path to output text file.
 
@@ -110,36 +135,38 @@ def load_summary_report(*, summary: dict[str, int], out_path: Path) -> None:
         f.write(f"Characters: {summary['chars']}\n")
 
 
-# === DEFINE THE FULL PIPELINE FUNCTION ===
+# === FULL PIPELINE ===
+
+# This function composes the four steps into a single callable pipeline.
+# The logger is passed in as an argument so this function works in any context.
 
 
 def run_text_pipeline(*, raw_dir: Path, processed_dir: Path, logger: Any) -> None:
     """Run the full ETVL pipeline.
 
-    Args:
+    Arguments:
         raw_dir: Path to data/raw directory.
         processed_dir: Path to data/processed directory.
         logger: Logger for logging messages.
 
     Returns:
         None
-
     """
     logger.info("TXT: START")
 
     input_file = raw_dir / "romeo_and_juliet.txt"
     output_file = processed_dir / "txt_summary.txt"
 
-    # E
+    # E: Read raw data.
     lines = extract_lines(file_path=input_file)
 
-    # T
+    # T: Calculate counts.
     summary = transform_line_word_char_counts(lines=lines)
 
-    # V
+    # V: Verify results before writing.
     verify_summary(summary=summary)
 
-    # L
+    # L: Write results to disk.
     load_summary_report(summary=summary, out_path=output_file)
 
     logger.info("TXT: wrote %s", output_file)

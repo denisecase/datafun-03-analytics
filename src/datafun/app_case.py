@@ -13,18 +13,15 @@ Practice key Python skills:
   V = Verify (check, validate data in memory)
   L = Load (write results, to data/processed or other destination)
 
+Terminal command to run this file from the root project folder:
+
+    uv run python -m datafun.app_case
+
 OBS:
   Don't edit this file - it should remain a working example.
+  Copy it, rename it, and modify your copy.
 """
 
-# DEBUG HELP: If you see "import block is unsorted",
-# mouse over, click lightbulb icon for suggestions. and select "Organize Imports".
-
-# DEBUG HELP: If you see "Type of run_csv_pipeline is unknown",
-# Ensure you have set up your .venv.
-# View / Command Palette: Python: Select Interpreter
-# Select the .venv in this project folder.
-# View / Command Palette: Developer: Reload Window.
 
 # === DECLARE IMPORTS (BRING IN FREE CODE) ===
 
@@ -34,14 +31,14 @@ from pathlib import Path
 from typing import Final
 
 # REQ: imports from external packages must be listed in pyproject.toml dependencies
-from datafun_toolkit.logger import get_logger, log_header
+from datafun_toolkit.logger import get_logger, log_header, log_path
 
 # === IMPORT LOCAL MODULE FUNCTIONS ===
 # REQ: imports from other modules in this project must use full package path
-from datafun_03_analytics.case_csv_pipeline import run_csv_pipeline
-from datafun_03_analytics.case_json_pipeline import run_json_pipeline
-from datafun_03_analytics.case_text_pipeline import run_text_pipeline
-from datafun_03_analytics.case_xlsx_pipeline import run_xlsx_pipeline
+from datafun.case_csv_pipeline import run_csv_pipeline
+from datafun.case_json_pipeline import run_json_pipeline
+from datafun.case_text_pipeline import run_text_pipeline
+from datafun.case_xlsx_pipeline import run_xlsx_pipeline
 
 # === CONFIGURE LOGGER ONCE PER MODULE ===
 
@@ -58,24 +55,42 @@ PROCESSED_DIR: Final[Path] = DATA_DIR / "processed"
 
 
 def main() -> None:
-    """Entry point: run four simple ETVL pipelines."""
-    log_header(LOG, "Pipelines: Read, Process, Verify, Write (ETVL)")
-    LOG.info("START main()")
+    """Entry point for the script.
 
-    # Each pipeline reads from data/raw and writes to data/processed.
+    Entry point: run four simple ETVL pipelines.
+
+    log_header() logs a standard run header.
+    log_path() logs repo-relative paths (privacy-safe).
+
+    Arguments: None.
+    Returns: None.
+    """
+    log_header(LOG, "P03")
+
+    LOG.info("========================")
+    LOG.info("START main()")
+    LOG.info("========================")
+
+    log_path(LOG, "ROOT_DIR", ROOT_DIR)
+    log_path(LOG, "PROCESSED_DIR", PROCESSED_DIR)
+
+    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Call each pipeline. Each reads from data/raw and writes to data/processed.
     run_csv_pipeline(raw_dir=RAW_DIR, processed_dir=PROCESSED_DIR, logger=LOG)
     run_xlsx_pipeline(raw_dir=RAW_DIR, processed_dir=PROCESSED_DIR, logger=LOG)
     run_json_pipeline(raw_dir=RAW_DIR, processed_dir=PROCESSED_DIR, logger=LOG)
     run_text_pipeline(raw_dir=RAW_DIR, processed_dir=PROCESSED_DIR, logger=LOG)
 
-    LOG.info("END main()")
+    LOG.info("========================")
+    LOG.info("Executed successfully!")
+    LOG.info("========================")
 
 
 # === CONDITIONAL EXECUTION GUARD ===
 
 # WHY: If running this file as a script, then call main() function.
-# OBS: This is just standard Python boilerplate.
-# OBS: We copy and paste it and do not bother to memorize it.
+# OBS: This is standard Python "boilerplate".
 
 if __name__ == "__main__":
     main()
