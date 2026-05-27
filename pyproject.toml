@@ -1,8 +1,14 @@
 # ============================================================
 # pyproject.toml (Python project configuration)
 # ============================================================
+# Updated: 2026-04-15
 # REQ.PYTHON: Python projects MUST include pyproject.toml as the single source of truth.
 # WHY: Centralizes project configuration.
+# CUSTOM: Update identity and build tool src folders.
+
+# ============================================================
+# SECTION 1: PROJECT IDENTITY (name, version, CUSTOM dependencies)
+# ============================================================
 
 [project]
 name = "datafun-03-analytics" # CUSTOM: Package distribution name (use lowercase and dashes).
@@ -25,7 +31,6 @@ dev = [
     "pytest",
     "pytest-cov",
     "ruff",
-    "validate-pyproject",
 ]
 
 docs = [
@@ -34,13 +39,14 @@ docs = [
     "zensical",
 ]
 
+# ============================================================
+# SECTION 2: TOOL CONFIGURATION (Professional basics)
+# ============================================================
+
 # === PYRIGHT (TYPE CHECKING HELPS FIND COMMON ERRORS BEFORE THE CODE RUNS) ===
 
 [tool.pyright]
 # CUSTOM: Pyright configuration for static type checking.
-# This configuration is NOT enforced by CI or pre-commit.
-# It is provided for instructors and advanced users who
-# explicitly run pyright. It is optional.
 # WHY: Strict type checking helps catch bugs early.
 include = ["src"]
 extraPaths = ["src"]
@@ -120,47 +126,33 @@ force-sort-within-sections = false # WHY: Avoid unnecessary churn by only sortin
 # === CHOOSE PROJECT DOC STYLE ===
 
 [tool.ruff.lint.pydocstyle]
-# WHY: Choose one docstring convention project-wide to avoid mixed styles and churn.
-# REQ: Google style is the default policy for this repository.
-convention = "google" # ALT: "numpy" (choose one convention project-wide)
+# REQ: Google style is the project-wide docstring convention.
+convention = "google"   # ALT: "numpy" — choose one, never mix.
 
-# === BUILD SYSTEM ===
+# ============================================================
+# SECTION 3: BUILD SYSTEM (boilerplate; CUSTOM src/ agreement)
+# ============================================================
 #
-# REQ.PROJECT:
-#   This project MUST define a build system so that Python modules
-#   can be discovered, imported, and published to PyPI reliably.
-#
-# WHY:
-#   Tools such as editors, test runners, CI, and PyPI need a consistent
-#   way to locate and package importable code.
-#
-# REQ.STRUCTURE:
-#   All importable Python code MUST live under src/.
-#
-# WHY:
-#   A src/ layout prevents accidental imports from the repository root and
-#   ensures consistent behavior across IDEs, tests, command-line runs,
-#   and published distributions.
+# REQ.PROJECT: A build system MUST be declared for package discovery and publishing.
+# REQ.STRUCTURE: All importable code MUST live under src/.
+# WHY src/ layout: Prevents accidental imports from the repo root;
+#     ensures consistent behavior across IDEs, tests, CI, and PyPI.
 
 [build-system]
-# REQ.BUILD: A build backend MUST be declared to enable package discovery and publishing.
 build-backend = "hatchling.build"
 requires = ["hatchling", "hatch-vcs"]
 
+[tool.hatch.build.hooks.vcs]
+# WHY: Writes computed version into src/*/_version.py at build time.
+# CUSTOM: Must match src/ folders.
+version-file = "src/datafun/_version.py"
+
 [tool.hatch.build.targets.wheel]
-# REQ.PACKAGES: Package discovery MUST be rooted at src/.
-packages = ["src/datafun"]
+# CUSTOM: Must match src/ folders.
+packages = ["src/datafun"]  # REQ.PACKAGES: Discovery rooted at src/.
 
 [tool.hatch.version]
-# WHY: Version is derived from git tags at build time so the package version
-# always matches the release tag without manual updates to source files.
-# fallback-version is used when no git tags are present (e.g., fresh clone, CI without tags).
-# tag-pattern matches tags like v1.2.3 or 1.2.3 and extracts the numeric version.
+# WHY: Version derived from git tags at build time — no manual source file edits.
 source = "vcs"
-fallback-version = "0.1.0"
+fallback-version = "0.1.0"              # Used when no git tags present (fresh clone, CI).
 tag-pattern = "^(?:v)?(?P<version>\\d+\\.\\d+\\.\\d+)$"
-
-[tool.hatch.build.hooks.vcs]
-# WHY: Writes computed version into package at build time.
-# Can be read at runtime without importing hatch-vcs.
-version-file = "src/datafun/_version.py"

@@ -41,11 +41,11 @@ Steps:
 - Choose one pipeline: CSV, JSON, text, or XLSX
 - Find or create a new data file of that type
   - CSV: any dataset with at least one numeric column
-    (e.g., from https://www.kaggle.com or https://data.gov)
+    (e.g., from <https://www.kaggle.com> or <https://data.gov>)
   - JSON: any JSON file with a list of objects
-    (e.g., from a public API or https://github.com/jdorfman/awesome-json-datasets)
+    (e.g., from a public API or <https://github.com/jdorfman/awesome-json-datasets>)
   - Text: any plain text file with readable content
-    (e.g., from https://www.gutenberg.org)
+    (e.g., from <https://www.gutenberg.org>)
   - XLSX: any Excel file with text content in a column
 - Copy and rename the relevant pipeline file
 - Update the input filename and column/key names to match your new data

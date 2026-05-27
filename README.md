@@ -1,6 +1,7 @@
 # datafun-03-analytics
 
-[![Python 3.14+](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](#)
+[![Workflow Guide](https://img.shields.io/badge/Pro--Guide-pro--analytics--02-green)](https://denisecase.github.io/pro-analytics-02/workflow-b-apply-example-project/)
+[![Python 3.14](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](./pyproject.toml)
 [![MIT](https://img.shields.io/badge/license-see%20LICENSE-yellow.svg)](./LICENSE)
 
 > Professional Python project: working with data files for analytics.
@@ -18,53 +19,18 @@ We learn by doing.
 
 ## This Project
 
-This project illustrates ETL data pipelines processing raw data with the following types:
+This project illustrates **ETL data pipelines** for extracting raw data,
+transforming it, and loading results.
 
-- CSV (comma separated values)
-- JSON (structured data commonly used to exchange information over the web)
-- Text (excerpt from _Romeo and Juliet_)
-- Excel file (using the `openpyxl` package added to `pyproject.toml`)
+Think about some raw data you would like to process:
 
-The working example illustrates a complete pipeline.
-Use the working example and your resources to create your own processing pipelines.
+- **CSV** (comma-separated values, common tabular format)
+- **JSON** (structured data commonly used to exchange information over the web)
+- **Text** (unstructured, e.g., a literary excerpt or a log file)
+- **Excel** (widely used in business and research)
 
-Think about some raw data you would like to process.
-
-- What format is the data? Choose from csv, json, text, or xlsx.
-- Choose static data (e.g., in files), rather than data in motion (e.g., social media streams)
-- Being able to read and process a wide variety of data files is critical in professional analytics.
-- Python is popular partly because it makes building data pipelines relatively easy.
-
-## Project Specific Choices for Data Pipeline projects
-
-We've turned off some PyRight type checks since we are working with raw data pipelines.
-
-- WHY: We don't know what types things are until after we read them.
-- See pyproject.toml and the [tool.pyright] section for details.
-
-We use keyword-only function arguments when defining our ETL functions.
-
-- In our functions, you'll see a `*,`.
-- The asterisk can appear anywhere in the list of parameters.
-- EVERY argument AFTER the asterisk must be passed using the named keyword argument (also called kwarg), rather than by position.
-- WHY: Requiring named arguments prevents argument-order mistakes.
-- It also makes our function calls self-documenting, which can be especially helpful in data-processing pipelines.
-
-## Large Project File
-
-This repo includes a 2.2 MB Excel data file.
-We have increased the size of the "large file" check in our pre-commit hooks.
-
-## DEBUG HELP: If you see "import block is unsorted",
-
-Mouse over, click lightbulb icon for suggestions. and select "Organize Imports".
-
-## DEBUG HELP: If you see "Type of run_csv_pipeline is unknown",
-
-Ensure you have set up your .venv.
-View / Command Palette: Python: Select Interpreter.
-Select the .venv in this project folder.
-View / Command Palette: Developer: Reload Window.
+You will run the working example pipelines, read the code,
+and build your own pipeline to process a dataset you choose.
 
 ## Working Files
 
@@ -72,12 +38,15 @@ You'll work with just these areas:
 
 - **docs/** - the project narrative and documentation
 - **src/datafun** - where the magic happens
+- **data/raw/** - input data files
 - **pyproject.toml** - update authorship & links
 - **zensical.toml** - update authorship & links
 
 ## Instructions
 
-Follow the [step-by-step workflow guide](https://denisecase.github.io/pro-analytics-02/workflow-b-apply-example-project/) to complete:
+Follow the
+[step-by-step workflow guide](https://denisecase.github.io/pro-analytics-02/workflow-b-apply-example-project/)
+to complete:
 
 1. Phase 1. **Start & Run**
 2. Phase 2. **Change Authorship**
@@ -102,6 +71,8 @@ running on your machine, and running the example will print out:
 Executed successfully!
 ========================
 ```
+
+A new file `project.log` will appear in the root project folder.
 
 ## Command Reference
 
@@ -129,6 +100,9 @@ code .
 ### In a VS Code terminal
 
 ```shell
+# reset uv cache only after suspected cache corruption or strange dependency errors
+# uv cache clean
+
 uv self update
 uv python pin 3.14
 uv sync --extra dev --extra docs --upgrade
@@ -148,8 +122,8 @@ uv run python -m datafun.app_case
 uv run ruff format .
 uv run ruff check . --fix
 uv run python -m pyright
-uv run pytest
-uv run zensical build
+uv run python -m pytest
+uv run python -m zensical build
 
 # save progress
 git add -A
@@ -163,26 +137,36 @@ git push -u origin main
 
 - Use the **UP ARROW** and **DOWN ARROW** in the terminal to scroll through past commands.
 - Use `CTRL+f` to find (and replace) text within a file.
+- You do not need to add to or modify `tests/`. They are provided for example only.
+- Many files are silent helpers. Explore as you like, but nothing is required.
+- You do NOT not to understand everything; understanding builds naturally over time.
+
+## Troubleshooting >>>
+
+If you see something like this in your terminal: `>>>` or `...`
+You accidentally started Python interactive mode.
+It happens.
+Press `Ctrl+c` (both keys together) or `Ctrl+Z` then `Enter` on Windows.
 
 ## Example Output
 
-```text
+```shell
 | INFO | P03 | ========================
 | INFO | P03 | START main()
 | INFO | P03 | ========================
 | INFO | P03 | ROOT_DIR = .
 | INFO | P03 | PROCESSED_DIR = data\processed
 | INFO | P03 | CSV: START
-| INFO | P03 | CSV: wrote C:\Repos\datafun\datafun-03-analytics\data\processed\csv_ladder_score_stats.txt
+| INFO | P03 | CSV: wrote data\processed\csv_ladder_score_stats.txt
 | INFO | P03 | CSV: END
 | INFO | P03 | XLSX: START
-| INFO | P03 | XLSX: wrote C:\Repos\datafun\datafun-03-analytics\data\processed\xlsx_feedback_github_count.txt
+| INFO | P03 | XLSX: wrote data\processed\xlsx_feedback_github_count.txt
 | INFO | P03 | XLSX: END
 | INFO | P03 | JSON: START
-| INFO | P03 | JSON: wrote C:\Repos\datafun\datafun-03-analytics\data\processed\json_astronauts_by_craft.txt
+| INFO | P03 | JSON: wrote data\processed\json_astronauts_by_craft.txt
 | INFO | P03 | JSON: END
 | INFO | P03 | TXT: START
-| INFO | P03 | TXT: wrote C:\Repos\datafun\datafun-03-analytics\data\processed\txt_summary.txt
+| INFO | P03 | TXT: wrote data\processed\txt_summary.txt
 | INFO | P03 | TXT: END
 | INFO | P03 | ========================
 | INFO | P03 | Executed successfully!

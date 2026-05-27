@@ -36,13 +36,13 @@ Lint / format:
 
 ```shell
 uv run ruff format .
-uv run ruff check .
+uv run ruff check . --fix
 ```
 
 Build documentation:
 
 ```shell
-uv run zensical build
+uv run python -m zensical build
 ```
 
 ## pre-commit

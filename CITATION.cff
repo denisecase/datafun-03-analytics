@@ -2,7 +2,7 @@
 # CITATION.cff (How to cite this project)
 # ============================================================
 
-# REQ.UNIVERSAL: Professional open projects SHOULD include CITATION.cff.
+# REQ.UNIVERSAL: Professional open projects SHOULD include this file.
 # WHY: Support correct citation and attribution.
 # ALT: Internal or private repositories may omit citation metadata.
 # CUSTOM: Update author, repository, license, and keyword fields as needed.
@@ -11,9 +11,9 @@
 cff-version: "1.2.0"
 type: software
 
-title: "Data Analytics Fundamentals 03: Raw Data Pipelines and Analytics in Python"
-version: "1.0.0"
-date-released: "2026-04-13"
+title: "Data Analytics Fundamentals: Raw Data Pipelines and Analytics in Python"
+version: "0.2.0"
+date-released: "2026-05-10"
 
 authors:
   - family-names: Case
