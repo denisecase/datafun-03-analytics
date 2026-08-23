@@ -39,7 +39,7 @@ jobs:
         # WHY: Required so all subsequent steps can access repo files.
 
       - name: A2) Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: "3.x"
         # WHY: Stdlib-only script; no uv or project dependencies needed.
