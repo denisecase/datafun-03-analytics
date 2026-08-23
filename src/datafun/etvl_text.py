@@ -1,9 +1,9 @@
-"""case_text_pipeline.py - Text ETVL pipeline.
+"""etvl_text.py - Text ETVL pipeline.
 
 Author: Denise Case
-Date: 2026-04
+Date: 2026-08-23
 
-  Practice key Python skills related to:
+Practice key Python skills related to:
     - ETVL pipeline structure (Extract, Transform, Verify, Load)
     - reading text files line by line
     - counting lines, words, and characters
@@ -11,24 +11,21 @@ Date: 2026-04
     - error handling with raise
     - writing results to a text file
 
-  Paths (relative to repo root):
-
-    INPUT FILE:  data/raw/romeo_and_juliet.txt
-    OUTPUT FILE: data/processed/txt_summary.txt
-
-  Terminal command to run this file from the root project folder:
-
-    uv run python -m datafun.case_text_pipeline
-
 OBS:
-  Don't edit this file - it should remain a working example.
-  Copy it, rename it, and modify your copy.
+  This file is part of the working example project.
+  First, run and understand the example as provided.
+  When you take ownership of the project, adapt this pipeline
+  to process data for your new problem.
+
+RUN:
+  No need.
+  We don't usually run supporting modules like this one directly.
 """
 
 # === DECLARE IMPORTS (BRING IN FREE CODE) ===
 
+import logging
 from pathlib import Path
-from typing import Any
 
 # === SKILL: READING A TEXT FILE LINE BY LINE ===
 
@@ -102,12 +99,13 @@ def verify_summary(*, summary: dict[str, int]) -> None:
         summary: Dictionary with counts for 'lines', 'words', and 'chars'.
 
     Returns:
-        None
+        None.
     """
     for key in ("lines", "words", "chars"):
         # Handle known possible error: the key is missing.
         if key not in summary:
             raise KeyError(f"Missing summary key: {key}")
+
         # Handle known possible error: count is negative.
         if summary[key] < 0:
             raise ValueError(f"Invalid {key} count: {summary[key]}")
@@ -116,7 +114,11 @@ def verify_summary(*, summary: dict[str, int]) -> None:
 # === L: LOAD ===
 
 
-def load_summary_report(*, summary: dict[str, int], out_path: Path) -> None:
+def load_summary_report(
+    *,
+    summary: dict[str, int],
+    out_path: Path,
+) -> None:
     """L: Write summary to a text file in data/processed.
 
     Arguments:
@@ -124,7 +126,7 @@ def load_summary_report(*, summary: dict[str, int], out_path: Path) -> None:
         out_path: Path to output text file.
 
     Returns:
-        None
+        None.
     """
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -135,39 +137,73 @@ def load_summary_report(*, summary: dict[str, int], out_path: Path) -> None:
         f.write(f"Characters: {summary['chars']}\n")
 
 
+# === CALL THIS PIPELINE FROM app.py ===
+
+# The main app.py file declares the data-specific choices:
+#
+#   TXT_INPUT  = data/raw/romeo_and_juliet.txt
+#   TXT_OUTPUT = data/processed/txt_summary.txt
+#
+# app.py calls this function and passes those values in:
+#
+#   run_etvl_text(
+#       input_file=TXT_INPUT,
+#       output_file=TXT_OUTPUT,
+#       log=LOG,
+#   )
+#
+# Each named argument provides one value this function needs.
+# The parameter name is on the LEFT of =.
+# The value declared in app.py is on the RIGHT.
+#
+# The * below means each argument must be passed by name.
+
+
 # === FULL PIPELINE ===
 
 # This function composes the four steps into a single callable pipeline.
+# Each step receives the output of the previous step.
 # The logger is passed in as an argument so this function works in any context.
 
 
-def run_text_pipeline(*, raw_dir: Path, processed_dir: Path, logger: Any) -> None:
-    """Run the full ETVL pipeline.
+def run_etvl_text(
+    *,
+    input_file: Path,
+    output_file: Path,
+    log: logging.Logger,
+) -> None:
+    """Run the full text ETVL pipeline.
 
     Arguments:
-        raw_dir: Path to data/raw directory.
-        processed_dir: Path to data/processed directory.
-        logger: Logger for logging messages.
+        input_file: Path to the input text file.
+        output_file: Path to the output text file.
+        log: Logger for logging messages.
 
     Returns:
-        None
+        None.
     """
-    logger.info("TXT: START")
-
-    input_file = raw_dir / "romeo_and_juliet.txt"
-    output_file = processed_dir / "txt_summary.txt"
+    log.info("TXT: START")
 
     # E: Read raw data.
-    lines = extract_lines(file_path=input_file)
+    lines = extract_lines(
+        file_path=input_file,
+    )
 
     # T: Calculate counts.
-    summary = transform_line_word_char_counts(lines=lines)
+    summary = transform_line_word_char_counts(
+        lines=lines,
+    )
 
     # V: Verify results before writing.
-    verify_summary(summary=summary)
+    verify_summary(
+        summary=summary,
+    )
 
     # L: Write results to disk.
-    load_summary_report(summary=summary, out_path=output_file)
+    load_summary_report(
+        summary=summary,
+        out_path=output_file,
+    )
 
-    logger.info("TXT: wrote %s", output_file)
-    logger.info("TXT: END")
+    log.info("TXT: wrote %s", output_file)
+    log.info("TXT: END")

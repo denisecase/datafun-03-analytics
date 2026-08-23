@@ -1,9 +1,9 @@
-"""case_xlsx_pipeline.py - XLSX ETVL pipeline.
+"""etvl_xlsx.py - XLSX ETVL pipeline.
 
 Author: Denise Case
-Date: 2026-04
+Date: 2026-08-23
 
-  Practice key Python skills related to:
+Practice key Python skills related to:
     - ETVL pipeline structure (Extract, Transform, Verify, Load)
     - reading Excel files using the openpyxl package
     - accessing cells by column letter
@@ -12,24 +12,22 @@ Date: 2026-04
     - counting word occurrences across strings
     - writing results to a text file
 
-  Paths (relative to repo root):
-
-    INPUT FILE:  data/raw/Feedback.xlsx
-    OUTPUT FILE: data/processed/xlsx_feedback_github_count.txt
-
-  Terminal command to run this file from the root project folder:
-
-    uv run python -m datafun.case_xlsx_pipeline
-
 OBS:
-  Don't edit this file - it should remain a working example.
-  Copy it, rename it, and modify your copy.
+  This file is part of the working example project.
+  First, run and understand the example as provided.
+  When you take ownership of the project, adapt this pipeline
+  to process data for your new problem.
+
+RUN:
+  No need.
+  We don't usually run supporting modules like this one directly.
 """
 
 # === DECLARE IMPORTS (BRING IN FREE CODE) ===
 
+import logging
 from pathlib import Path
-from typing import Any, cast
+from typing import cast
 
 # openpyxl is an external package - it must be listed in pyproject.toml dependencies.
 # OBS: If you see "import openpyxl could not be resolved", open pyproject.toml,
@@ -52,7 +50,11 @@ from openpyxl.cell.cell import Cell
 # === E: EXTRACT ===
 
 
-def extract_xlsx_column_strings(*, file_path: Path, column_letter: str) -> list[str]:
+def extract_xlsx_column_strings(
+    *,
+    file_path: Path,
+    column_letter: str,
+) -> list[str]:
     """E: Read an Excel file and extract string values from a column.
 
     Arguments:
@@ -67,6 +69,7 @@ def extract_xlsx_column_strings(*, file_path: Path, column_letter: str) -> list[
         raise FileNotFoundError(f"Missing input file: {file_path}")
 
     workbook = openpyxl.load_workbook(file_path)
+
     # active returns the first worksheet - the one visible when the file opens.
     sheet = workbook.active
 
@@ -76,6 +79,7 @@ def extract_xlsx_column_strings(*, file_path: Path, column_letter: str) -> list[
         # cast() narrows the type for the type checker - no runtime effect.
         cell = cast(Cell, cell)
         value = cell.value
+
         # Only keep non-empty string values.
         if isinstance(value, str) and value.strip():
             values.append(value)
@@ -90,7 +94,11 @@ def extract_xlsx_column_strings(*, file_path: Path, column_letter: str) -> list[
 # Accumulate counts across all values with +=.
 
 
-def transform_count_word(*, values: list[str], word: str) -> int:
+def transform_count_word(
+    *,
+    values: list[str],
+    word: str,
+) -> int:
     """T: Count occurrences of a word across all strings (case-insensitive).
 
     Arguments:
@@ -106,9 +114,11 @@ def transform_count_word(*, values: list[str], word: str) -> int:
 
     target = word.lower()
     count = 0
+
     for text in values:
         # Convert both to lowercase for case-insensitive matching.
         count += text.lower().count(target)
+
     return count
 
 
@@ -122,7 +132,7 @@ def verify_count(*, count: int) -> None:
         count: The count to verify.
 
     Returns:
-        None
+        None.
     """
     # Handle known possible error: count is negative.
     if count < 0:
@@ -133,7 +143,11 @@ def verify_count(*, count: int) -> None:
 
 
 def load_count_report(
-    *, count: int, out_path: Path, word: str, column_letter: str
+    *,
+    count: int,
+    out_path: Path,
+    word: str,
+    column_letter: str,
 ) -> None:
     """L: Write the word count result to a text file in data/processed.
 
@@ -144,7 +158,7 @@ def load_count_report(
         column_letter: The column letter that was processed.
 
     Returns:
-        None
+        None.
     """
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -155,42 +169,77 @@ def load_count_report(
         f.write(f"Count: {count}\n")
 
 
+# === CALL THIS PIPELINE FROM app.py ===
+
+# The main app.py file declares the data-specific choices:
+#
+#   XLSX_INPUT  = data/raw/Feedback.xlsx
+#   XLSX_OUTPUT = data/processed/xlsx_feedback_github_count.txt
+#   XLSX_COLUMN = A
+#   XLSX_WORD   = GitHub
+#
+# app.py calls this function and passes those values in:
+#
+#   run_etvl_xlsx(
+#       input_file=XLSX_INPUT,
+#       output_file=XLSX_OUTPUT,
+#       column_letter=XLSX_COLUMN,
+#       word=XLSX_WORD,
+#       log=LOG,
+#   )
+#
+# Each named argument provides one value this function needs.
+# The parameter name is on the LEFT of =.
+# The value declared in app.py is on the RIGHT.
+#
+# The * below means each argument must be passed by name.
+
+
 # === FULL PIPELINE ===
 
 # This function composes the four steps into a single callable pipeline.
+# Each step receives the output of the previous step.
 # The logger is passed in as an argument so this function works in any context.
 
 
-def run_xlsx_pipeline(*, raw_dir: Path, processed_dir: Path, logger: Any) -> None:
-    """Run the full ETVL pipeline.
+def run_etvl_xlsx(
+    *,
+    input_file: Path,
+    output_file: Path,
+    column_letter: str,
+    word: str,
+    log: logging.Logger,
+) -> None:
+    """Run the full XLSX ETVL pipeline.
 
     Arguments:
-        raw_dir: Path to data/raw directory.
-        processed_dir: Path to data/processed directory.
-        logger: Logger for logging messages.
+        input_file: Path to the input XLSX file.
+        output_file: Path to the output text file.
+        column_letter: Letter of the column to process.
+        word: Word to count.
+        log: Logger for logging messages.
 
     Returns:
-        None
+        None.
     """
-    logger.info("XLSX: START")
+    log.info("XLSX: START")
 
-    input_file = raw_dir / "Feedback.xlsx"
-    output_file = processed_dir / "xlsx_feedback_github_count.txt"
-
-    column_letter = "A"
-    word = "GitHub"
-
-    # E: Read string values from column A.
+    # E: Read string values from the selected column.
     values = extract_xlsx_column_strings(
         file_path=input_file,
         column_letter=column_letter,
     )
 
     # T: Count occurrences of the target word.
-    count = transform_count_word(values=values, word=word)
+    count = transform_count_word(
+        values=values,
+        word=word,
+    )
 
     # V: Verify the count before writing.
-    verify_count(count=count)
+    verify_count(
+        count=count,
+    )
 
     # L: Write results to disk.
     load_count_report(
@@ -200,5 +249,5 @@ def run_xlsx_pipeline(*, raw_dir: Path, processed_dir: Path, logger: Any) -> Non
         column_letter=column_letter,
     )
 
-    logger.info("XLSX: wrote %s", output_file)
-    logger.info("XLSX: END")
+    log.info("XLSX: wrote %s", output_file)
+    log.info("XLSX: END")

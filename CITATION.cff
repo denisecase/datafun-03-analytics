@@ -9,11 +9,12 @@
 # USAGE: See https://citation-file-format.github.io/ for details.
 
 cff-version: "1.2.0"
+message: "If using this work, please cite it as described in this file."
 type: software
 
-title: "Data Analytics Fundamentals: Raw Data Pipelines and Analytics in Python"
+title: "datafun-03-analytics"
 version: "0.2.0"
-date-released: "2026-05-10"
+date-released: "2026-08-20"
 
 authors:
   - family-names: Case
@@ -34,47 +35,26 @@ abstract: >
   within a professional, reproducible project workflow.
 
 keywords:
-  # identity
-  - data analytics
-  - python
-  - descriptive-statistics
-  - data-structures
-  - data-ingestion
-  - exploratory-data-analysis
-  - tabular-data
-  - csv
-  - json
-  - sql
-  - time-series
-  - predictive-analytics
+  - data-analytics
+  - analytics-foundations
+  - data-exploration
+  - data-inspection
+  - pandas
   - logging
-
-  # audience
-  - education
-  - computer-science-education
-  - data-analytics-education
-
-  # practices
   - professional-python
   - src-layout
-  - ci-cd
-  - github-actions
   - reproducible-workflows
   - software-quality
-  - professional-practice
-
-  # tools and ecosystem
+  - ci-cd
+  - github-actions
   - python
-  - pandas
   - git
   - github
-  - pre-commit
   - open-source
   - uv
   - ruff
   - pre-commit
-  - pyright
+  - ty
   - hatchling
   - zensical
-
-message: "If using this work, please cite it as described in this file."
+  - data-analytics-education

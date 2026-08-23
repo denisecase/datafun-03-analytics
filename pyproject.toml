@@ -1,10 +1,11 @@
 # ============================================================
-# pyproject.toml (Python project configuration)
+# pyproject.toml (ALL-PY-SRC-REPOS)
 # ============================================================
-# Updated: 2026-04-15
-# REQ.PYTHON: Python projects MUST include pyproject.toml as the single source of truth.
+# Updated: 2026-08-23
+# REQ: Python src/ projects MUST include pyproject.toml as the single source of truth.
 # WHY: Centralizes project configuration.
-# CUSTOM: Update identity and build tool src folders.
+# CUSTOM: If you change the repository name, update the project identity and build tool src folders accordingly.
+# CUSTOM: This project keeps dependencies current; in production, package versions are pinned explicitly.
 
 # ============================================================
 # SECTION 1: PROJECT IDENTITY (name, version, CUSTOM dependencies)
@@ -18,116 +19,95 @@ version = "1.0.0"
 
 dependencies = [
     # REQ.DEPS: External packages used by the project code.
-    "datafun-toolkit",
-    "openpyxl",
+    "datafun-toolkit", # WHY: Custom utility library for privacy-aware logging
+    "eda-vizkit", # WHY: Visualization library for exploratory data analysis
+    "matplotlib", # WHY: Foundational plotting library for data visualization
+    "pandas", # WHY: DataFrame library for data manipulation and analysis.
+    "openpyxl", # WHY: Excel file support for data import/export.
 ]
 
-[project.optional-dependencies]
-# WHY: Optional dependency groups keep the core install clean and focused.
+[dependency-groups]
+# WHY: Development dependencies support maintaining and validating the project
+# but are not runtime dependencies or optional features of the published package.
+
 dev = [
     # REQ.DEV.DEPS: External packages used for linting, testing, type checking, etc.
-    "pre-commit",
-    "pyright",
-    "pytest",
-    "pytest-cov",
-    "ruff",
+    "pre-commit", # WHY: Pre-commit hooks for consistent formatting and linting.
+    "pytest",     # WHY: Test framework for unit and integration tests.
+    "pytest-cov", # WHY: Test coverage reporting for quality metrics and CI gating.
+    "ruff",       # WHY: Fast linting and formatting for Python code.
+    "ty",         # WHY: Type checking for static analysis and type safety.
 ]
 
 docs = [
     # REQ.DOCS.DEPS: External packages used to generate project documentation.
-    "mkdocstrings[python]",
     "zensical",
+    "mkdocstrings[python]", # WHY: Auto-generate API docs from docstrings.
 ]
+
+# notebooks = [
+#     # REQ.NOTEBOOKS.DEPS: Interactive notebook environments used to explore
+#     # and present analytical work.
+#     "ipykernel", # WHY: Run traditional Jupyter notebooks with the project environment.
+#     "ipython",   # WHY: Interactive Python support used by Jupyter workflows.
+#     "marimo",    # WHY: Run reactive Python notebooks stored as regular .py files.
+# ]
 
 # ============================================================
 # SECTION 2: TOOL CONFIGURATION (Professional basics)
 # ============================================================
 
-# === PYRIGHT (TYPE CHECKING HELPS FIND COMMON ERRORS BEFORE THE CODE RUNS) ===
+# === MARIMO REACTIVE NOTEBOOKS ===
 
-[tool.pyright]
-# CUSTOM: Pyright configuration for static type checking.
-# WHY: Strict type checking helps catch bugs early.
-include = ["src"]
-extraPaths = ["src"]
-exclude = [ "**/node_modules", "**/.*", ".venv","**/__pycache__","dist","build"]
-pythonVersion = "3.14"
-reportMissingImports = "warning"
-reportPrivateUsage = "none"
-typeCheckingMode = "basic" # strict | basic | off
-useLibraryCodeForTypes = false
-# CUSTOM: Added when working with dynamic data files with unknown types.
-reportOptionalSubscript = false
-reportUnknownMemberType = false
-reportUnknownVariableType = false
+[tool.marimo.save]
+autosave = "after_delay"
+autosave_delay = 1000
+format_on_save = true
+
+[tool.marimo.package_management]
+manager = "uv"
+
+[tool.marimo.runtime]
+pythonpath = ["./src"]
 
 # === PYTEST (VERIFY LOGIC) ===
 
 [tool.pytest.ini_options]
-# WHY: Ensure tests are discoverable and coverage is visible.
-minversion = "7.0"
+# WHY: Consistent test discovery and coverage visibility.
+minversion = "9.0"
 testpaths = ["tests"]
-addopts = " --cov=src --cov-report=term-missing"
+addopts = "--cov=src --cov-fail-under=20 --cov-report=term-missing"
+filterwarnings = [
+    "ignore:FigureCanvasAgg is non-interactive, and thus cannot be shown:UserWarning",
+]
 
 # === RUFF (PYTHON FORMATTING AND LINTING) ===
 
-[tool.ruff]
-# WHY: Ruff provides fast linting and formatting with deterministic output.
-exclude = [
-    ".eggs",
-    "*.egg-info",
-    ".ruff_cache",
-    ".venv",
-    "__pycache__",
-    "build",
-    "dist",
-    "site",
-]
-line-length = 88 # WHY: PEP 8 standard line length, wrap when possible.
-preview = false # WHY: Stable features only; avoid preview features.
-target-version = "py313" # WHY: Match latest supported Python version.
-unsafe-fixes = false # WHY: Avoid potentially unsafe automatic fixes.
-
-[tool.ruff.format]
-# WHY: Formatter choices should be stable to keep diffs small and predictable.
-indent-style = "space" # See also .gitattributes for indent style.
-line-ending = "auto" # Match existing files and let .gitattributes handle it.
-quote-style = "preserve" # Preserve existing quote styles to minimize churn.
-
-[tool.ruff.lint]
-# WHY: Professional baseline rules without requiring advanced refactors.
-select = [
-    "E",   # Basic syntax and structural correctness
-    "F",   # Undefined names and unused imports
-    "W",   # Warnings that catch easy issues early
-    "I",   # Deterministic import ordering
-    "UP",  # Modern Python constructs
-    "B",   # Common bug patterns
-    "PTH", # Prefer pathlib patterns
-]
-ignore = [
-  "E501", # Final line length handled by formatter
+[tool.ruff.lint] # WHY: Evolve with Ruff's defaults; production might pin an explicit set.
+extend-select = [
+    # --- turn on for additional linting rules ---
+    "D",  # WHY: Require docstrings; VS Code helps generate them.
 ]
 
-[tool.ruff.lint.isort]
-# WHY: Ordering imports helps keep code diffs (differences) readable.
-force-sort-within-sections = false # WHY: Avoid unnecessary churn by only sorting within sections.
+[tool.ruff.lint.isort] # WHY: Sort plain-import and from-import lines together within each section.
+force-sort-within-sections = true
 
-# === PER-FILE IGNORES (DEPENDS ON DOCSTRING POLICY) ===
+[tool.ruff.lint.per-file-ignores] # WHY: Some file types need lint exceptions.
+"src/**/__init__.py" = ["F401"] # Allow re-export patterns.
+"src/**/_version.py" = ["ALL"]  # Auto-generated file; do not lint.
+"tests/**/*.py" = ["D", "B018"] # Tests need no docstrings; B018 is default-on.
+"notebooks/**/*.py" = ["D", "PLR1711", "RUF059"]   # marimo cells: bare returns + cell-scoped unused vars are the format, not defects
 
-[tool.ruff.lint.per-file-ignores]
-# WHY: Some files MUST NOT undergo linting or automated fixes.
+[tool.ruff.lint.pydocstyle] # WHY: Use Google docstring style when D is enabled.
+convention = "google"
 
-# POLICY: Docstring rules are NOT enabled (no "D" in [tool.ruff.lint].select).
-"src/**/__init__.py" = ["F401"]     # Allow re-export patterns
-"src/**/_version.py" = ["ALL"]      # Auto-generated file (do not lint)
-"notebooks/**/*.ipynb" = ["F821"]   # Notebooks may have runtime-defined names
+# === UV (PYTHON ENVIRONMENT AND DEPENDENCY MANAGEMENT) ===
 
-# === CHOOSE PROJECT DOC STYLE ===
-
-[tool.ruff.lint.pydocstyle]
-# REQ: Google style is the project-wide docstring convention.
-convention = "google"   # ALT: "numpy" — choose one, never mix.
+[tool.uv]
+# WHY: Install all dependency groups defined by this repository by default.
+# OBS: This keeps the canonical `uv sync` command identical across project types
+#      and ensures all repository features work after setup.
+default-groups = "all"
 
 # ============================================================
 # SECTION 3: BUILD SYSTEM (boilerplate; CUSTOM src/ agreement)
@@ -140,19 +120,8 @@ convention = "google"   # ALT: "numpy" — choose one, never mix.
 
 [build-system]
 build-backend = "hatchling.build"
-requires = ["hatchling", "hatch-vcs"]
-
-[tool.hatch.build.hooks.vcs]
-# WHY: Writes computed version into src/*/_version.py at build time.
-# CUSTOM: Must match src/ folders.
-version-file = "src/datafun/_version.py"
+requires = ["hatchling"]
 
 [tool.hatch.build.targets.wheel]
 # CUSTOM: Must match src/ folders.
 packages = ["src/datafun"]  # REQ.PACKAGES: Discovery rooted at src/.
-
-[tool.hatch.version]
-# WHY: Version derived from git tags at build time — no manual source file edits.
-source = "vcs"
-fallback-version = "0.1.0"              # Used when no git tags present (fresh clone, CI).
-tag-pattern = "^(?:v)?(?P<version>\\d+\\.\\d+\\.\\d+)$"

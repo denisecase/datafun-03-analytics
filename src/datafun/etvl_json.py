@@ -1,9 +1,9 @@
-"""case_json_pipeline.py - JSON ETVL pipeline.
+"""etvl_json.py - JSON ETVL pipeline.
 
 Author: Denise Case
-Date: 2026-04
+Date: 2026-08-23
 
-  Practice key Python skills related to:
+Practice key Python skills related to:
     - ETVL pipeline structure (Extract, Transform, Verify, Load)
     - reading JSON files using the json module
     - walking JSON: dictionaries, lists, and nested structures
@@ -12,23 +12,21 @@ Date: 2026-04
     - runtime type checking with isinstance()
     - writing results to a text file
 
-  Paths (relative to repo root):
-
-    INPUT FILE:  data/raw/astros.json
-    OUTPUT FILE: data/processed/json_astronauts_by_craft.txt
-
-  Terminal command to run this file from the root project folder:
-
-    uv run python -m datafun.case_json_pipeline
-
 OBS:
-  Don't edit this file - it should remain a working example.
-  Copy it, rename it, and modify your copy.
+  This file is part of the working example project.
+  First, run and understand the example as provided.
+  When you take ownership of the project, adapt this pipeline
+  to process data for your new problem.
+
+RUN:
+  No need.
+  We don't usually run supporting modules like this one directly.
 """
 
 # === DECLARE IMPORTS (BRING IN FREE CODE) ===
 
 import json
+import logging
 from pathlib import Path
 from typing import Any
 
@@ -37,12 +35,12 @@ from typing import Any
 # JSON is a common format for exchanging data over the web.
 # Python's json module reads JSON into native Python types:
 #
-#   JSON object  → Python dict   { "key": value }
-#   JSON array   → Python list   [ value, value ]
-#   JSON string  → Python str    "hello"
-#   JSON number  → Python int or float
-#   JSON boolean → Python bool   true → True
-#   JSON null    → Python None
+#   JSON object  / Python dict   { "key": value }
+#   JSON array   / Python list   [ value, value ]
+#   JSON string  / Python str    "hello"
+#   JSON number  / Python int or float
+#   JSON boolean / Python bool   true / True
+#   JSON null    / Python None
 #
 # JSON is hierarchical: lists and dicts can be nested inside each other.
 # Example:
@@ -69,7 +67,9 @@ from typing import Any
 
 
 def extract_people_list(
-    *, file_path: Path, list_key: str = "people"
+    *,
+    file_path: Path,
+    list_key: str = "people",
 ) -> list[dict[str, Any]]:
     """E/V: Read JSON file and extract a list of dictionaries under list_key.
 
@@ -95,7 +95,7 @@ def extract_people_list(
     # Use dict.get() to safely retrieve the list - default to empty list if missing.
     value: Any = data.get(list_key, [])
 
-    # Verify the value is actually a list before iterating.
+    # Verify the value is a list before iterating.
     if not isinstance(value, list):
         raise TypeError(f"Expected {list_key!r} to be a list.")
 
@@ -117,7 +117,9 @@ def extract_people_list(
 
 
 def transform_count_by_craft(
-    *, people_list: list[dict[str, Any]], craft_key: str = "craft"
+    *,
+    people_list: list[dict[str, Any]],
+    craft_key: str = "craft",
 ) -> dict[str, int]:
     """T: Count people by craft.
 
@@ -133,9 +135,11 @@ def transform_count_by_craft(
     for person in people_list:
         # Use dict.get() to safely access the craft key.
         craft: Any = person.get(craft_key, "Unknown")
+
         # Guard against non-string or empty values.
         if not isinstance(craft, str) or not craft.strip():
             craft = "Unknown"
+
         # Increment the count for this craft, starting at 0 if not yet seen.
         counts[craft] = counts.get(craft, 0) + 1
 
@@ -152,12 +156,13 @@ def verify_counts(*, counts: dict[str, int]) -> None:
         counts: Dictionary mapping craft names to counts.
 
     Returns:
-        None
+        None.
     """
     for craft, count in counts.items():
         # Handle known possible error: invalid craft name.
         if not craft.strip():
             raise ValueError(f"Invalid craft name: {craft!r}")
+
         # Handle known possible error: count is negative.
         if count < 0:
             raise ValueError(f"Invalid count for craft {craft!r}: {count}")
@@ -169,7 +174,11 @@ def verify_counts(*, counts: dict[str, int]) -> None:
 # This makes output consistent and predictable regardless of input order.
 
 
-def load_counts_report(*, counts: dict[str, int], out_path: Path) -> None:
+def load_counts_report(
+    *,
+    counts: dict[str, int],
+    out_path: Path,
+) -> None:
     """L: Write craft counts to a text file in data/processed.
 
     Arguments:
@@ -177,50 +186,95 @@ def load_counts_report(*, counts: dict[str, int], out_path: Path) -> None:
         out_path: Path to output text file.
 
     Returns:
-        None
+        None.
     """
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     with out_path.open("w", encoding="utf-8") as f:
         f.write("Astronauts by spacecraft:\n")
+
         # Sort craft names alphabetically for consistent, readable output.
         for craft in sorted(counts):
             f.write(f"{craft}: {counts[craft]}\n")
 
 
+# === CALL THIS PIPELINE FROM app.py ===
+
+# The main app.py file declares the data-specific choices:
+#
+#   JSON_INPUT     = data/raw/astros.json
+#   JSON_OUTPUT    = data/processed/json_astronauts_by_craft.txt
+#   JSON_LIST_KEY  = people
+#   JSON_CRAFT_KEY = craft
+#
+# app.py calls this function and passes those values in:
+#
+#   run_etvl_json(
+#       input_file=JSON_INPUT,
+#       output_file=JSON_OUTPUT,
+#       list_key=JSON_LIST_KEY,
+#       craft_key=JSON_CRAFT_KEY,
+#       log=LOG,
+#   )
+#
+# Each named argument provides one value this function needs.
+# The parameter name is on the LEFT of =.
+# The value declared in app.py is on the RIGHT.
+#
+# The * below means each argument must be passed by name.
+
+
 # === FULL PIPELINE ===
 
 # This function composes the four steps into a single callable pipeline.
+# Each step receives the output of the previous step.
 # The logger is passed in as an argument so this function works in any context.
 
 
-def run_json_pipeline(*, raw_dir: Path, processed_dir: Path, logger: Any) -> None:
-    """Run the full ETVL pipeline.
+def run_etvl_json(
+    *,
+    input_file: Path,
+    output_file: Path,
+    list_key: str,
+    craft_key: str,
+    log: logging.Logger,
+) -> None:
+    """Run the full JSON ETVL pipeline.
 
     Arguments:
-        raw_dir: Path to data/raw directory.
-        processed_dir: Path to data/processed directory.
-        logger: Logger for logging messages.
+        input_file: Path to the input JSON file.
+        output_file: Path to the output text file.
+        list_key: Top-level key containing the list of records.
+        craft_key: Key containing the craft name in each record.
+        log: Logger for logging messages.
 
     Returns:
-        None
+        None.
     """
-    logger.info("JSON: START")
-
-    input_file = raw_dir / "astros.json"
-    output_file = processed_dir / "json_astronauts_by_craft.txt"
+    log.info("JSON: START")
 
     # E: Read raw data.
-    people_list = extract_people_list(file_path=input_file, list_key="people")
+    people_list = extract_people_list(
+        file_path=input_file,
+        list_key=list_key,
+    )
 
     # T: Count people by craft.
-    craft_counts = transform_count_by_craft(people_list=people_list, craft_key="craft")
+    craft_counts = transform_count_by_craft(
+        people_list=people_list,
+        craft_key=craft_key,
+    )
 
     # V: Verify results before writing.
-    verify_counts(counts=craft_counts)
+    verify_counts(
+        counts=craft_counts,
+    )
 
     # L: Write results to disk.
-    load_counts_report(counts=craft_counts, out_path=output_file)
+    load_counts_report(
+        counts=craft_counts,
+        out_path=output_file,
+    )
 
-    logger.info("JSON: wrote %s", output_file)
-    logger.info("JSON: END")
+    log.info("JSON: wrote %s", output_file)
+    log.info("JSON: END")

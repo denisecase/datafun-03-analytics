@@ -1,16 +1,15 @@
-"""tests/test_app_case.py - Smoke test for the example.
+"""tests/test_app.py - Smoke test for the example.
 
 WHY: Professional Python projects include tests to verify that code runs
      correctly and to catch problems early when changes are made.
      Running tests is part of the standard workflow in every module.
 
-OBS: You do not need to read or modify this file in Module 1.
-     It exists so that `uv run python -m pytest` passes on a clean project.
+OBS: You do not need to read or modify this file.
 """
 
 
-def test_app_case_runs():
+def test_app_runs() -> None:
     """Confirm the example module runs without error."""
-    from datafun.app_case import main
+    from datafun.app import main
 
     main()

@@ -1,51 +1,36 @@
 # ============================================================
-# .pre-commit-config.yaml (Python Hygiene)
+# .pre-commit-config.yaml (ALL-PY-SRC-REPOS)
 # ============================================================
-# Updated: 2026-04-13
-
-# REQ: Professional Python projects SHOULD include a .pre-commit-config.yaml
-# to minimize git diffs and support collaboration.
-# WHY: Provide fast, consistent checks before committing code.
+# Updated: 2026-08-13
+#
+# REQ: Professional projects using Python src/ SHOULD include pre-commit checks.
+# WHY: Minimize git diffs, catch common issues early, and support collaboration.
 #
 # OBS: These hooks use and do NOT override:
 #   - .editorconfig (whitespace / indentation)
 #   - .gitattributes (EOL normalization)
 #   - pyproject.toml (Python tool settings)
 #
-# OPTIONAL LOCAL USAGE (no repo venv required):
-#   You must have uv installed locally.
-#   Run these commands once from the repo root to enable pre-commit:
-#
+# OPTIONAL LOCAL USAGE (keep tools updated):
 #   uv self update
-#   uvx pre-commit install
-#   uvx pre-commit run --all-files
+#   uv run pre-commit install
+#   uv run pre-commit autoupdate
 #
-# This enables the pre-commit hooks for this project repo.
-# ALL subsequent commits in this repo will AUTOMATICALLY run these
-# pre-commit hooks, after `git add` and before `git commit`.
+# OPTIONAL LOCAL USAGE (run all hooks on all git-tracked files):
+#   uv run pre-commit run --all-files
+#   The first time, it may indicate errors / fixes,
+#   So just re-run the command (up arrow) and it often goes all green.
 #
-# NOTE: enabling pre-commit is optional. It is not needed to clone or commit.
-#
-# === RUFF HOOK ORDER (pre-commit vs. manual) ===
-#
-# PRE-COMMIT ORDER: lint first, then format.
-# WHY: Hooks run sequentially in a single automated pass.
-#      ruff-check --fix may change code structure (e.g., remove unused imports,
-#      rewrite expressions). ruff-format then cleans up the result.
-#      If format ran first, lint fixes could undo the formatting.
-#
-# MANUAL ORDER (command line) is different: format first, then check.
-#   uv run ruff format .
-#   uv run ruff check . --fix
-# WHY: When running manually, each command is a conscious step.
-#      Format cleans style first so lint sees tidy code.
-#      You are in control and can re-run either command as needed.
-#      The single-pass sequencing constraint does not apply.
+# NOTE: Enabling pre-commit is optional. It is not needed to clone or commit.
+# You can skip it with the --no-verify option, e.g.:
+#   git commit -m "your message" --no-verify
 
 exclude: |
   (?x)^(
-    \.DS_Store|
+    .*\.egg-info/|
+    .*\.log|
     \.coverage|
+    \.DS_Store|
     \.ipynb_checkpoints/|
     \.mypy_cache/|
     \.nox/|
@@ -53,8 +38,6 @@ exclude: |
     \.ruff_cache/|
     \.tox/|
     \.venv/|
-    .*\.(egg-info)/|
-    .*\.log|
     __pycache__/|
     _minted.*/|
     build/|
@@ -94,8 +77,8 @@ repos:
 
       - id: check-json
         name: B1) Validate JSON syntax (except .vscode/)
-        # WHY: VSCode settings may include comments, which are non-standard JSON.
-        exclude: ^\.vscode/.*\.json$
+        # WHY: VS Code settings may include comments, which are non-standard JSON.
+        exclude: (^|/)\.vscode/.*\.json$
 
       - id: check-toml
         name: B2) Validate TOML syntax
@@ -103,8 +86,8 @@ repos:
       - id: check-yaml
         name: B3) Validate YAML syntax
         files: \.(yml|yaml)$
-        # WHY: VS Code config files are editor-specific
-        exclude: ^(\.vscode/)
+        # WHY: VS Code config files are editor-specific.
+        exclude: ^\.vscode/
 
       # === PRE-COMMIT: CHECK FOR COMMON PROBLEMS ===
 
@@ -120,20 +103,16 @@ repos:
 
   # === REPO: RUFF PRE-COMMIT (for Python code) ===
 
-  # WHY: Lint runs before format in pre-commit (opposite of manual order).
-  #      See RUFF HOOK ORDER note at the top of this file.
-
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.12
+    rev: v0.16.4
     hooks:
-      - id: ruff-check
-        name: D1) Ruff linter with autofix (runs first in pre-commit)
-        # WHY: Lint fixes run first so formatter sees the corrected code.
-        args: [--fix, --exit-non-zero-on-fix]
-
+      # === RUFF PRE-COMMIT CHECKS ===
       - id: ruff-format
-        name: D2) Ruff formatter (runs after linter fixes)
-        # WHY: Formats whatever structure the linter left behind.
+        name: D1) Ruff format (before linting)
+
+      - id: ruff
+        name: D2) Ruff linter (autofix errors, style issues )
+        args: [--fix, --exit-non-zero-on-fix]
 
 # === GLOBAL SETTINGS ===
 # ALT: Set fail_fast to true to stop at first failure.

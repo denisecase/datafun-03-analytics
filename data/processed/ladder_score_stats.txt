@@ -1,0 +1,7 @@
+Statistics for column: Ladder score
+One row represents: one country
+Count: 153
+Minimum: 2.57
+Maximum: 7.81
+Mean: 5.47
+Standard Deviation: 1.11

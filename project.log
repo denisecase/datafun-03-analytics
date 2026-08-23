@@ -1,0 +1,182 @@
+2026-08-23 14:57:57 | INFO | P03 | === RUN START ===
+2026-08-23 14:57:57 | INFO | P03 | project=P03
+2026-08-23 14:57:57 | INFO | P03 | repo_dir=datafun-03-analytics
+2026-08-23 14:57:57 | INFO | P03 | python=3.14.7
+2026-08-23 14:57:57 | INFO | P03 | os=Windows 11
+2026-08-23 14:57:57 | INFO | P03 | shell=powershell
+2026-08-23 14:57:57 | INFO | P03 | cwd=.
+2026-08-23 14:57:57 | INFO | P03 | github_actions=False
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | START main()
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | raw folder = data\raw
+2026-08-23 14:57:57 | INFO | P03 | processed folder = data\processed
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | CSV pipeline
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | Pipeline: 
+Read the world happiness CSV file,
+extract the selected numeric column,
+calculate descriptive statistics,
+verify the results,
+and write the statistics to a text file.
+
+2026-08-23 14:57:57 | INFO | P03 | Column: Ladder score
+2026-08-23 14:57:57 | INFO | P03 | Why: 
+The ladder score is the survey's overall happiness measure,
+so its distribution is the natural first summary of this dataset.
+
+2026-08-23 14:57:57 | INFO | P03 | CSV: START
+2026-08-23 14:57:57 | INFO | P03 | Extracted 153 rows from 2020_happiness.csv
+2026-08-23 14:57:57 | INFO | P03 | Converted 153 values, skipped 0, from 'Ladder score'
+2026-08-23 14:57:57 | INFO | P03 | Calculated statistics: {'count': 153.0, 'min': 2.566900015, 'max': 7.808700085, 'mean': 5.473239862849673, 'stdev': 1.112270173678083}
+2026-08-23 14:57:57 | INFO | P03 | Verified statistics: all checks passed.
+2026-08-23 14:57:57 | INFO | P03 | Wrote report to csv_ladder_score_stats.txt
+2026-08-23 14:57:57 | INFO | P03 | CSV: wrote data\processed\csv_ladder_score_stats.txt
+2026-08-23 14:57:57 | INFO | P03 | CSV: END
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | JSON pipeline
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | Pipeline: 
+Read the astronauts JSON file,
+extract the list of people,
+count people by spacecraft,
+verify the results,
+and write the counts to a text file.
+
+2026-08-23 14:57:57 | INFO | P03 | Grouping: people by craft
+2026-08-23 14:57:57 | INFO | P03 | Why: 
+Each person is assigned to a craft, so counting by craft shows
+how the crew is distributed across spacecraft.
+
+2026-08-23 14:57:57 | INFO | P03 | JSON: START
+2026-08-23 14:57:57 | INFO | P03 | JSON: wrote data\processed\json_astronauts_by_craft.txt
+2026-08-23 14:57:57 | INFO | P03 | JSON: END
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | XLSX pipeline
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | Pipeline: 
+Read the feedback Excel file,
+extract text from the selected column,
+count occurrences of the selected word,
+verify the result,
+and write the count to a text file.
+
+2026-08-23 14:57:57 | INFO | P03 | Word: GitHub in column A
+2026-08-23 14:57:57 | INFO | P03 | Why: 
+Feedback mentions GitHub when students hit repository issues,
+so counting the word estimates how often that came up.
+
+2026-08-23 14:57:57 | INFO | P03 | XLSX: START
+2026-08-23 14:57:57 | INFO | P03 | XLSX: wrote data\processed\xlsx_feedback_github_count.txt
+2026-08-23 14:57:57 | INFO | P03 | XLSX: END
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | TEXT pipeline
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | Pipeline: 
+Read the Romeo and Juliet text file,
+count its lines, words, and characters,
+verify the results,
+and write the summary to a text file.
+
+2026-08-23 14:57:57 | INFO | P03 | Why: 
+Line, word, and character counts give a quick size profile
+of a plain-text document before any deeper reading.
+
+2026-08-23 14:57:57 | INFO | P03 | TXT: START
+2026-08-23 14:57:57 | INFO | P03 | TXT: wrote data\processed\txt_summary.txt
+2026-08-23 14:57:57 | INFO | P03 | TXT: END
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:57:57 | INFO | P03 | END main() - Executed successfully!
+2026-08-23 14:57:57 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | === RUN START ===
+2026-08-23 14:58:12 | INFO | P03 | project=P03
+2026-08-23 14:58:12 | INFO | P03 | repo_dir=datafun-03-analytics
+2026-08-23 14:58:12 | INFO | P03 | python=3.14.7
+2026-08-23 14:58:12 | INFO | P03 | os=Windows 11
+2026-08-23 14:58:12 | INFO | P03 | shell=powershell
+2026-08-23 14:58:12 | INFO | P03 | cwd=.
+2026-08-23 14:58:12 | INFO | P03 | github_actions=False
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | START main()
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | raw folder = data\raw
+2026-08-23 14:58:12 | INFO | P03 | processed folder = data\processed
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | CSV pipeline
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | Pipeline: 
+Read the world happiness CSV file,
+extract the selected numeric column,
+calculate descriptive statistics,
+verify the results,
+and write the statistics to a text file.
+
+2026-08-23 14:58:12 | INFO | P03 | Column: Ladder score
+2026-08-23 14:58:12 | INFO | P03 | Why: 
+The ladder score is the survey's overall happiness measure,
+so its distribution is the natural first summary of this dataset.
+
+2026-08-23 14:58:12 | INFO | P03 | CSV: START
+2026-08-23 14:58:12 | INFO | P03 | Extracted 153 rows from 2020_happiness.csv
+2026-08-23 14:58:12 | INFO | P03 | Converted 153 values, skipped 0, from 'Ladder score'
+2026-08-23 14:58:12 | INFO | P03 | Calculated statistics: {'count': 153.0, 'min': 2.566900015, 'max': 7.808700085, 'mean': 5.473239862849673, 'stdev': 1.112270173678083}
+2026-08-23 14:58:12 | INFO | P03 | Verified statistics: all checks passed.
+2026-08-23 14:58:12 | INFO | P03 | Wrote report to csv_ladder_score_stats.txt
+2026-08-23 14:58:12 | INFO | P03 | CSV: wrote data\processed\csv_ladder_score_stats.txt
+2026-08-23 14:58:12 | INFO | P03 | CSV: END
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | JSON pipeline
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | Pipeline: 
+Read the astronauts JSON file,
+extract the list of people,
+count people by spacecraft,
+verify the results,
+and write the counts to a text file.
+
+2026-08-23 14:58:12 | INFO | P03 | Grouping: people by craft
+2026-08-23 14:58:12 | INFO | P03 | Why: 
+Each person is assigned to a craft, so counting by craft shows
+how the crew is distributed across spacecraft.
+
+2026-08-23 14:58:12 | INFO | P03 | JSON: START
+2026-08-23 14:58:12 | INFO | P03 | JSON: wrote data\processed\json_astronauts_by_craft.txt
+2026-08-23 14:58:12 | INFO | P03 | JSON: END
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | XLSX pipeline
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | Pipeline: 
+Read the feedback Excel file,
+extract text from the selected column,
+count occurrences of the selected word,
+verify the result,
+and write the count to a text file.
+
+2026-08-23 14:58:12 | INFO | P03 | Word: GitHub in column A
+2026-08-23 14:58:12 | INFO | P03 | Why: 
+Feedback mentions GitHub when students hit repository issues,
+so counting the word estimates how often that came up.
+
+2026-08-23 14:58:12 | INFO | P03 | XLSX: START
+2026-08-23 14:58:12 | INFO | P03 | XLSX: wrote data\processed\xlsx_feedback_github_count.txt
+2026-08-23 14:58:12 | INFO | P03 | XLSX: END
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | TEXT pipeline
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | Pipeline: 
+Read the Romeo and Juliet text file,
+count its lines, words, and characters,
+verify the results,
+and write the summary to a text file.
+
+2026-08-23 14:58:12 | INFO | P03 | Why: 
+Line, word, and character counts give a quick size profile
+of a plain-text document before any deeper reading.
+
+2026-08-23 14:58:12 | INFO | P03 | TXT: START
+2026-08-23 14:58:12 | INFO | P03 | TXT: wrote data\processed\txt_summary.txt
+2026-08-23 14:58:12 | INFO | P03 | TXT: END
+2026-08-23 14:58:12 | INFO | P03 | ===================================
+2026-08-23 14:58:12 | INFO | P03 | END main() - Executed successfully!
+2026-08-23 14:58:12 | INFO | P03 | ===================================
