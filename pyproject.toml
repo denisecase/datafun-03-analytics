@@ -1,0 +1,127 @@
+# ============================================================
+# pyproject.toml (ALL-PY-SRC-REPOS)
+# ============================================================
+# Updated: 2026-08-23
+# REQ: Python src/ projects MUST include pyproject.toml as the single source of truth.
+# WHY: Centralizes project configuration.
+# CUSTOM: If you change the repository name, update the project identity and build tool src folders accordingly.
+# CUSTOM: This project keeps dependencies current; in production, package versions are pinned explicitly.
+
+# ============================================================
+# SECTION 1: PROJECT IDENTITY (name, version, CUSTOM dependencies)
+# ============================================================
+
+[project]
+name = "datafun-03-analytics" # CUSTOM: Package distribution name (use lowercase and dashes).
+readme = "README.md"
+requires-python = ">=3.14"
+version = "1.0.0"
+
+dependencies = [
+    # REQ.DEPS: External packages used by the project code.
+    "datafun-toolkit", # WHY: Custom utility library for privacy-aware logging
+    "eda-vizkit", # WHY: Visualization library for exploratory data analysis
+    "matplotlib", # WHY: Foundational plotting library for data visualization
+    "pandas", # WHY: DataFrame library for data manipulation and analysis.
+    "openpyxl", # WHY: Excel file support for data import/export.
+]
+
+[dependency-groups]
+# WHY: Development dependencies support maintaining and validating the project
+# but are not runtime dependencies or optional features of the published package.
+
+dev = [
+    # REQ.DEV.DEPS: External packages used for linting, testing, type checking, etc.
+    "pre-commit", # WHY: Pre-commit hooks for consistent formatting and linting.
+    "pytest",     # WHY: Test framework for unit and integration tests.
+    "pytest-cov", # WHY: Test coverage reporting for quality metrics and CI gating.
+    "ruff",       # WHY: Fast linting and formatting for Python code.
+    "ty",         # WHY: Type checking for static analysis and type safety.
+]
+
+docs = [
+    # REQ.DOCS.DEPS: External packages used to generate project documentation.
+    "zensical",
+    "mkdocstrings[python]", # WHY: Auto-generate API docs from docstrings.
+]
+
+# notebooks = [
+#     # REQ.NOTEBOOKS.DEPS: Interactive notebook environments used to explore
+#     # and present analytical work.
+#     "ipykernel", # WHY: Run traditional Jupyter notebooks with the project environment.
+#     "ipython",   # WHY: Interactive Python support used by Jupyter workflows.
+#     "marimo",    # WHY: Run reactive Python notebooks stored as regular .py files.
+# ]
+
+# ============================================================
+# SECTION 2: TOOL CONFIGURATION (Professional basics)
+# ============================================================
+
+# === MARIMO REACTIVE NOTEBOOKS ===
+
+[tool.marimo.save]
+autosave = "after_delay"
+autosave_delay = 1000
+format_on_save = true
+
+[tool.marimo.package_management]
+manager = "uv"
+
+[tool.marimo.runtime]
+pythonpath = ["./src"]
+
+# === PYTEST (VERIFY LOGIC) ===
+
+[tool.pytest.ini_options]
+# WHY: Consistent test discovery and coverage visibility.
+minversion = "9.0"
+testpaths = ["tests"]
+addopts = "--cov=src --cov-fail-under=20 --cov-report=term-missing"
+filterwarnings = [
+    "ignore:FigureCanvasAgg is non-interactive, and thus cannot be shown:UserWarning",
+]
+
+# === RUFF (PYTHON FORMATTING AND LINTING) ===
+
+[tool.ruff.lint] # WHY: Evolve with Ruff's defaults; production might pin an explicit set.
+extend-select = [
+    # --- turn on for additional linting rules ---
+    # "D",  # WHY: Require docstrings; VS Code helps generate them.
+]
+
+[tool.ruff.lint.isort] # WHY: Sort plain-import and from-import lines together within each section.
+force-sort-within-sections = true
+
+[tool.ruff.lint.per-file-ignores] # WHY: Some file types need lint exceptions.
+"src/**/__init__.py" = ["F401"] # Allow re-export patterns.
+"src/**/_version.py" = ["ALL"]  # Auto-generated file; do not lint.
+"tests/**/*.py" = ["D", "B018"] # Tests need no docstrings; B018 is default-on.
+"notebooks/**/*.py" = ["D", "PLR1711", "RUF059"]   # marimo cells: bare returns + cell-scoped unused vars are the format, not defects
+
+[tool.ruff.lint.pydocstyle] # WHY: Use Google docstring style when D is enabled.
+convention = "google"
+
+# === UV (PYTHON ENVIRONMENT AND DEPENDENCY MANAGEMENT) ===
+
+[tool.uv]
+# WHY: Install all dependency groups defined by this repository by default.
+# OBS: This keeps the canonical `uv sync` command identical across project types
+#      and ensures all repository features work after setup.
+default-groups = "all"
+
+# ============================================================
+# SECTION 3: BUILD SYSTEM (boilerplate; CUSTOM src/ agreement)
+# ============================================================
+#
+# REQ.PROJECT: A build system MUST be declared for package discovery and publishing.
+# REQ.STRUCTURE: All importable code MUST live under src/.
+# WHY src/ layout: Prevents accidental imports from the repo root;
+#     ensures consistent behavior across IDEs, tests, CI, and PyPI.
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[tool.hatch.build.targets.wheel]
+# CUSTOM: Must match src/ folders.
+packages = ["src/datafun"]  # REQ.PACKAGES: Discovery rooted at src/.
