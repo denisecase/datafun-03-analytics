@@ -2,7 +2,7 @@
 
 ## Phase 4: First Technical Modification
 
-Make one small change technical change.
+Make one small technical change.
 Run the project again and see what happens.
 If your change causes an error, read the message, correct the problem,
 and rerun the project.
